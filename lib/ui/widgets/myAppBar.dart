@@ -24,14 +24,10 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            flex: 2,
-            child: buildDropdownButton(context, valueSnapshot: valueSnapshot),
-          ),
-          Expanded(
             child: RaisedButton(
               color: Colors.indigo,
               hoverColor: Colors.indigo[400],
-              child: Text("Команда" ,
+              child: Text("Главная" ,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -39,7 +35,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                   )
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed('/teamstudent');
+                 // TODO   Переход на страницу новостей из fcnn ветка 
               },
             ),
           ),
@@ -88,7 +84,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                                 Navigator.pushNamed(context, '/newuserroom'));
                           } else {
                             userDataBase = value.data();
-                            if (userDataBase["role"] == "teacher") {
+                            if (userDataBase["role"] == "admin") {
                               Navigator.pushNamed(context, '/roomteacher');
                             } else if (userDataBase["role"] == "student") {
                               Navigator.pushNamed(context, '/roomstudent');
