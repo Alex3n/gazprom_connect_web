@@ -1,3 +1,4 @@
+import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart' as WebFirebase;
@@ -282,7 +283,18 @@ class _DialogLoginState extends State<DialogLogin> {
                       },
                     ),
                   ),
+                ),                Container(
+                  height: 50,
+                  width: 300,
+                  child: Center(
+                    child: myGradientButton( context,
+                        btnText: "Применить",
+                        funk: () {
+
+                        }),
+                  ),
                 )
+
               ],
             ),
           ),
