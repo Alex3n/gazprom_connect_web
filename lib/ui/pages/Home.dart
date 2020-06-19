@@ -58,11 +58,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             "Обучение основам программирования",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.indigo[800],
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: Theme.of(context).textTheme.headline5,
                           ),
                         ),
                         Container(
@@ -70,11 +66,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             "Добро пожаловать, дорогой Друг!\n\nМы находимся на сайте, на котором ты можешь познакомиться с основными понятиями программирования.\nА для желающих обучаться в нашем доме есть индивидуальные комнаты.",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.indigo[600],
-                              fontSize: 26,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context).textTheme.headline5
                           ),
                         ),
                         Container(
@@ -82,11 +74,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                             "Программирование - это удивительная возможность воплотить свои идеи в жизнь.\nГлубоко внутри тебе уже известно, как создавать программы.\nТы Творец, а Код - твой помощник. И вы обязательно подружитесь! \n\nМечтай! Твори! Развивайся! ",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.indigo[600],
-                              fontSize: 26,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context).textTheme.headline5,
                           ),
                         ),
                       ]),

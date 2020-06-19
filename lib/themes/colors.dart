@@ -12,6 +12,12 @@ const maingazpromorange = const Color(0xFFF38B00);
 const maingazpromgreen = const Color(0xFF91993E);
 const maingazpromsilver = const Color(0xFFB2B2B2);
 
+//цвета газпромбанк
+const gazprombanknight = const Color(0xFF262C40);
+const gazprombankazure = const Color(0xFF0057B6);
+const gazprombankwhite = const Color(0xFFFFFFFF);
+const gazprombankasphalt = const Color(0xFF7C8793);
+
 //Основные цвета
 const mainappbarblue = const Color(0xFF8C9EFF);
 const maintextwhite = const Color(0xFFF5F5F5);

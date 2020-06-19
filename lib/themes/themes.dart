@@ -34,8 +34,8 @@ class MyThemes {
           letterSpacing: 1.1),
 
       headline5: TextStyle(
-        fontSize: 16,
-        fontFamily: "HeliousBold",
+        fontSize: 14,
+        fontFamily: "Proximanova",
         color: Colors.white,
 
       ),

@@ -33,10 +33,7 @@ class _TeamStudentState extends State<TeamStudent> {
             Expanded(
                 flex: 1,
                 child: Text("Наша команда",
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.indigo[900]))),
+                    style: Theme.of(context).textTheme.headline5)),
             Expanded(
               flex: 10,
               child: teamColumn(context),
@@ -78,18 +75,18 @@ Widget teamColumn(BuildContext context) {
                                     studentsDataDocs[item]
                                         .data()["name"]
                                         .toString(),
-                                style: TextStyle(color: Colors.indigo),
+                                style: Theme.of(context).textTheme.headline5,
                               ),
                               Text(
                                 "e-mail : " +
                                     studentsDataDocs[item].data()["email"],
-                                style: TextStyle(color: Colors.indigo),
+                                style: Theme.of(context).textTheme.headline5,
                               ),
                               Text(
                                 studentsDataDocs[item]
                                     .data()["role"]
                                     .toString(),
-                                style: TextStyle(color: Colors.indigo),
+                                style: Theme.of(context).textTheme.headline5,
                               ),
                             ],
                           ));

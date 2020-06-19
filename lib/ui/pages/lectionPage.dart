@@ -31,19 +31,11 @@ class _LectionPageState extends State<LectionPage> {
           children: <Widget>[
             Container( padding: EdgeInsets.all(10.0),
               child: Text(lectionMap['title'], textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.indigo[800],
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                      ),
+                style: Theme.of(context).textTheme.headline5,
               ),),
             Container( padding: EdgeInsets.all(5.0),
               child: Text(lectionMap['text'], textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.indigo,
-                ),
+                style: Theme.of(context).textTheme.headline5,
               ),),
             Center(
               child: Container(padding: EdgeInsets.all(5.0),
@@ -54,11 +46,7 @@ class _LectionPageState extends State<LectionPage> {
             ),
             Container( padding: EdgeInsets.all(5.0),
               child: Text(lectionMap['question'], textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.indigo,
-                ),
+                style: Theme.of(context).textTheme.headline5,
               ),),
 
 
