@@ -18,7 +18,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
         child: Icon(Icons.account_circle),)
     ],flexibleSpace: Container(
     decoration: BoxDecoration(
-        gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ btngradientstartlight,gazprombankazure])    ),
+        gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure])    ),
   ),
     title: Container(
       height: 30,
