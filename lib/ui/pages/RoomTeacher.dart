@@ -60,11 +60,7 @@ class _RoomTeacherState extends State<RoomTeacher> {
           Container(
             child: Text(
               " Ученики",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-                color: Colors.indigo[900],
-              ),
+              style: Theme.of(context).textTheme.headline5,
             ),
             padding: EdgeInsets.all(10.0),
           ),
@@ -122,10 +118,7 @@ class _RoomTeacherState extends State<RoomTeacher> {
           Container(
             padding: EdgeInsets.all(20.0),
             child: Text(" Занятия",
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.indigo[900])),
+                style: Theme.of(context).textTheme.headline5),
           ),
           FlatButton(
             onPressed: () {
@@ -220,10 +213,7 @@ class _RoomTeacherState extends State<RoomTeacher> {
           Container(
             padding: EdgeInsets.all(20.0),
             child: Text("Лекции",
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.indigo[900])),
+                style: Theme.of(context).textTheme.headline5),
           ),
           FlatButton(
             onPressed: () {
@@ -359,10 +349,7 @@ class _AddLessonWidgetState extends State<AddLessonWidget> {
               child: Text(
                 "Запланировать урок",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.indigo[900]),
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
             Container(
@@ -505,10 +492,7 @@ class _AddLectionWidgetState extends State<AddLectionWidget> {
               child: Text(
                 "Создать лекцию",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.indigo[900]),
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
 
