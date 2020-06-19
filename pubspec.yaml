@@ -78,9 +78,11 @@ flutter:
     - family: MyFlutterApp
       fonts:
         - asset: fonts/MyFlutterApp.ttf
-    - family: ProximaNova
+    - family: ProximaNovaBold
       fonts:
         - asset: fonts/proximanova-Bold.ttf
+    - family: ProximaNovaRegular
+      fonts:
         - asset: fonts/proximanova-Regular.ttf
   uses-material-design: true
   assets:
