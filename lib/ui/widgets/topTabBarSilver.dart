@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 class MainCollapsingToolbar extends StatefulWidget {
@@ -19,7 +20,7 @@ class MainCollapsingToolbar extends StatefulWidget {
   bool centerTitile = true;
 
   MainCollapsingToolbar ({ Key key, this.headers, this.pages, this.titleMain,
-  this.imageHeader, this.expandleHeight= 180.0, this.leadingWidget, this.centerTitile = true}) : super(key: key);
+    this.imageHeader, this.expandleHeight= 180.0, this.leadingWidget, this.centerTitile = true}) : super(key: key);
   @override
   _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
@@ -28,40 +29,45 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
   @override
   Widget build(BuildContext context) {
     return  DefaultTabController(
-        length: widget.pages.length,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                leading: widget.leadingWidget,
-                expandedHeight: widget.expandleHeight,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
+      length: widget.pages.length,
+      child: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              leading: widget.leadingWidget,
+              expandedHeight: widget.expandleHeight,
+              floating: false,
+              pinned: true,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure])    ),
+
+                child: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                     centerTitle: widget.centerTitile,
                     title: Text(widget.titleMain ,
                         style: Theme.of(context).textTheme.title),
                     background: widget.imageHeader),
               ),
-              SliverPersistentHeader(
-                delegate: widget.pages.length > 1 ? _SliverAppBarDelegate(
-                  TabBar(
-                    indicatorColor: Theme.of(context).accentColor ,
-                    unselectedLabelStyle: Theme.of(context).tabBarTheme.unselectedLabelStyle,
-                    labelStyle: Theme.of(context).tabBarTheme.unselectedLabelStyle,
-                    tabs: stringToTabs(widget.headers),
-                  ),
-                ) : _SliverSingleTabDelegate(),
-                pinned: true,
+            ),
+            SliverPersistentHeader(
+              delegate: widget.pages.length > 1 ? _SliverAppBarDelegate(
+                TabBar(
+                  indicatorColor: Theme.of(context).accentColor ,
+                  unselectedLabelStyle: Theme.of(context).tabBarTheme.unselectedLabelStyle,
+                  labelStyle: Theme.of(context).tabBarTheme.unselectedLabelStyle,
+                  tabs: stringToTabs(widget.headers),
+                ),
+              ) : _SliverSingleTabDelegate(),
+              pinned: true,
 
-              ),
-            ];
-          },
-          body:  TabBarView(
-            children: widget.pages,
-          ),
+            ),
+          ];
+        },
+        body:  TabBarView(
+          children: widget.pages,
         ),
+      ),
     );
   }
 
@@ -71,7 +77,7 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
       list.add(Tab(text: n));
     }
     return list;
-   }
+  }
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
