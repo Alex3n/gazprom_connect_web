@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:date_format/date_format.dart';
+import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/main.dart';
+import 'package:gazpromconnectweb/ui/AddCommentPage.dart';
+import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
+import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/topTabBarSilver.dart';
@@ -19,6 +23,8 @@ class NewsDetailPage extends StatefulWidget {
   String _likes;
   String _documentID;
   bool _liked;
+  bool commentsBlocked;
+
 
   @override
   State<StatefulWidget> createState() {
@@ -28,11 +34,12 @@ class NewsDetailPage extends StatefulWidget {
   }
 
   NewsDetailPage(this._documentID, this._title, this._description, this._image,
-      this._date, this._likes, this._liked);
+      this._date, this._likes, this._liked,
+      {this.commentsBlocked = false});
 }
 
 class NewsDetailState extends State<NewsDetailPage> {
-  Firestore store = firestore();
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   String _title;
@@ -46,12 +53,21 @@ class NewsDetailState extends State<NewsDetailPage> {
 
   String _userId;
   bool _result;
+  List<CommentModel> _commentList = new List();
 
   NewsDetailState(this._documentID, this._title, this._description, this._image,
       this._date, this._likes, this._liked);
 
+  @override
+  void initState() {
+    _getComments(_documentID);
+    super.initState();
+
+  }
+
   void _getCurrentUser() async {
     setState(() {
+
       _userId = getUserId();
     });
   }
@@ -160,6 +176,48 @@ class NewsDetailState extends State<NewsDetailPage> {
                         fontFamily: "Roboto"),
                   ),
                 ),
+                widget.commentsBlocked
+                    ? Container()
+                    : GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        10.0, 10.0, 4.0, 10.0),
+                    child: new Icon(Icons.insert_comment,
+                        color: Theme.of(context)
+                            .tabBarTheme
+                            .unselectedLabelColor,
+                        size: 28.0),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddCommentPage(_documentID),
+                      ),
+                    );
+                  },
+                ),
+                widget.commentsBlocked
+                    ? Container()
+                    : GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: new Text(
+                      _commentList.length.toString(),
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddCommentPage(_documentID),
+                      ),
+                    );
+                  },
+                ),
                 new Text(
                   formatDate(
                       DateTime.fromMillisecondsSinceEpoch(int.parse(date)),
@@ -170,7 +228,39 @@ class NewsDetailState extends State<NewsDetailPage> {
                       fontWeight: FontWeight.w400,
                       fontFamily: "Roboto"),
                 )
-              ]),
+              ]),_commentList.isNotEmpty
+              ? singleComment(context, _commentList.first, false)
+              : Container(),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CommentWidget(
+                    _documentID,
+                    commentsBlocked: widget.commentsBlocked,
+                  ),
+                ),
+              );
+            },
+            child: Text("Показать все комментарии (" +
+                _commentList.length.toString() +
+                ")"),
+          ),
+          widget.commentsBlocked
+              ? Container()
+              : Padding(
+            padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+            child: myGradientButton(context,
+                btnText: "Оставить комментарий", funk: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddCommentPage(_documentID),
+                    ),
+                  );
+                }),
+          )
         ]);
   }
 
@@ -183,4 +273,20 @@ class NewsDetailState extends State<NewsDetailPage> {
       return false;
     }
   }
+  Future<List<CommentModel>> _getComments(String newsId) async {
+    List<CommentModel> commModelList = new List();
+    await store
+        .collection("news")
+        .doc(_documentID)
+        .collection("comments")
+        .onSnapshot
+        .listen((snapshot) => snapshot.docs
+        .forEach((i) => commModelList.add(CommentModel.fromMap(i.data()))));
+    debugPrint("comms:" + commModelList.toString());
+    setState(() {
+      _commentList = commModelList;
+    });
+    return commModelList;
+  }
+
 }
