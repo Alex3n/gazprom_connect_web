@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/data.dart';
 import 'package:gazpromconnectweb/main.dart';
+import 'package:gazpromconnectweb/ui/pages/IdeasDetailPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
@@ -21,6 +22,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
+
+
     super.initState();
   }
   int _likes;
@@ -37,60 +40,65 @@ class _HomeState extends State<Home> {
         appBar: buildAppBar(context),
         body: Container(
             padding: EdgeInsets.all(20),
-            child: Column(children: <Widget>[
-              myGradientButton(context,
-                funk: () {
-                  Navigator.of(context).pushNamed('/ideapage');
-                },
-                btnText: 'Добавить идею',
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+              Container(width: 300,
+                child: myGradientButton(context,
+                                  funk:() {
+                    Navigator.of(context).pushNamed('/ideapage');
+                  },
+                  btnText: 'Добавить идею',
+                ),
               ),
               //                funk:() {
 //                  Navigator.of(context).pushNamed('/ideapage');
 //                },
 //                btnText: Text('Добавить идею'),
-              Expanded(child: Container(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: store
-                        .collection("ideas")
-                        .orderBy("title")
-                        .onSnapshot,
-                    builder:
-                        (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError)
-                        return new Text('Error: ${snapshot.error}');
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                          return new Text('Loading...');
-                        default:
-                          return new ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data.docs.length,
-                              itemBuilder: (BuildContext ctx, int index) {
-                                return GestureDetector(
-                                  child: buildMYColumn(
-                                      document: snapshot.data.docs.elementAt(
-                                          index)),
-                                  onTap: () {
-                                    _handleTap(
-                                        snapshot.data.docs.elementAt(index)
-                                            .data(),
-                                        id: snapshot.data.docs
-                                            .elementAt(index)
-                                            .id);
-                                  },
-                                );
-                              });
-                      }
-                    },
-                  )
+              Expanded ( child: Container (
+                child:         StreamBuilder<QuerySnapshot>(
+                  stream: store.collection("ideas").orderBy("title").onSnapshot,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return new Text('Loading...');
+                      default:
+                        return new ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data.docs.length,
+                            itemBuilder: (BuildContext ctx, int index) {
+                              return GestureDetector(
+                                child: buildMYColumn(
+                                    document: snapshot.data.docs.elementAt(index)),
+                                onTap: () {
+                                  _handleTap(snapshot.data.docs.elementAt(index),
+                                     );
+                                },
+                              );
+                            });
+                    }
+                  },
+                )
               ),)
 
             ])));
   }
 
   void _handleTap(Map<String, dynamic> data, {String id}) {
+
+
+
+  void _handleTap(DocumentSnapshot document) {
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => IdeasDetailPage(document),
+        ),
+      );
+    });
     print("taped");
   }
 
