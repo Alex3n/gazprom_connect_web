@@ -4,6 +4,7 @@ import 'package:gazpromconnectweb/func/mydb.dart';
 import 'package:gazpromconnectweb/main.dart';
 import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyTexts.dart';
+import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 
@@ -67,8 +68,8 @@ class _IdeaPageState extends State<IdeaPage> {
                         Text('актуально для: ' + (listDeps.isEmpty
                             ? "всех сотрудников"
                             : getDepsNames())),
-                        RaisedButton(
-                          onPressed: () {
+                        myGradientButton(context,
+                          funk: () {
                             showDialog(
                                 context: context,
                                 builder: (_) =>
@@ -136,7 +137,7 @@ class _IdeaPageState extends State<IdeaPage> {
                                   ),
                                 ));
                           },
-                          child: Text('Выбрать отдел'),
+                          btnText: 'Выбрать отдел',
                         ),
                       ],
                     ),
@@ -148,14 +149,17 @@ class _IdeaPageState extends State<IdeaPage> {
                   buildTextForm(decisionController,
                       label: 'Напишите решение'),
                   Center(
-                    child: RaisedButton(
-                      onPressed: () {
+                    child: Container(
+                      height: 60,
+                      width: 130,
+                      child: myGradientButton(context,
+                      funk: () {
                         clickWrite(context);
                       },
-                      child: Text(
+                      btnText:
                         'Сохранить',
-                      ),
                     ),
+                    )
                   ),
                 ],
               ),

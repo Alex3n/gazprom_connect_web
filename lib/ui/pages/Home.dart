@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/data.dart';
 import 'package:gazpromconnectweb/main.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
+import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myDropdownButton.dart';
 import 'package:firebase/firestore.dart';
@@ -28,12 +29,16 @@ class _HomeState extends State<Home> {
         body: Container(
             padding: EdgeInsets.all(20),
             child: Column(children: <Widget>[
-              RaisedButton(
-                onPressed:() {
+              myGradientButton(context,
+                                funk:() {
                   Navigator.of(context).pushNamed('/ideapage');
                 },
-                  child: Text('Добавить идею'),
+                btnText: 'Добавить идею',
               ),
+              //                funk:() {
+//                  Navigator.of(context).pushNamed('/ideapage');
+//                },
+//                btnText: Text('Добавить идею'),
               Expanded ( child: Container (
                 child:         StreamBuilder<QuerySnapshot>(
                   stream: store.collection("ideas").orderBy("title").onSnapshot,
