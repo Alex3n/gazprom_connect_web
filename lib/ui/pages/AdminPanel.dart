@@ -1,6 +1,7 @@
 import 'package:gazpromconnectweb/ui/pages/AdminDepartment.dart';
 import 'package:gazpromconnectweb/ui/pages/AdminEmployees.dart';
 import 'package:gazpromconnectweb/ui/pages/AdminIdeas.dart';
+import 'package:gazpromconnectweb/ui/pages/AdminProject.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,10 @@ enum AdminContent {
   editEmployee,
   ideas,
   addIdea,
-  editIdea
+  editIdea,
+  projects,
+  addProject,
+  editProject,
 }
 
 class AdminPanel extends StatefulWidget {
@@ -61,6 +65,9 @@ class _AdminPanelState extends State<AdminPanel> {
         case AdminContent.ideas:
         return AdminIdeasPage();
         break;
+        case AdminContent.projects:
+        return AdminProjectsPage();
+        break;
       default:
         return AdminNewsPage();
     }
@@ -90,6 +97,11 @@ class _AdminPanelState extends State<AdminPanel> {
               margin: _margin),
           buildMyCardWithPadding(Text("Редактор идей"),
               content: AdminContent.ideas,
+              padding: _padding,
+              context: context,
+              margin: _margin),
+          buildMyCardWithPadding(Text("Редактор проектов"),
+              content: AdminContent.projects,
               padding: _padding,
               context: context,
               margin: _margin),
