@@ -8,7 +8,7 @@ Widget myGradientButton(BuildContext context,{ String btnText=" ", void Function
     padding: const EdgeInsets.all(0.0),
     child: Ink(
       decoration: const BoxDecoration(
-        gradient: LinearGradient (colors: <Color>[ btngradientstartlight,btngradientendlight]),
+        gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure]),
         borderRadius: BorderRadius.all(Radius.circular(80.0)),
       ),
       child: Container(

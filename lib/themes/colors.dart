@@ -20,6 +20,7 @@ const maingazpromsilver = const Color(0xFFB2B2B2);
 //цвета газпромбанк основа
 const gazprombanknight = const Color(0xFF262C40);
 const gazprombankazure = const Color(0xFF0057B6);
+const gazprombanviolet = const Color(0xFF5960EA);
 const gazprombankwhite = const Color(0xFFFFFFFF);
 const gazprombankasphalt = const Color(0xFF7C8793);
 

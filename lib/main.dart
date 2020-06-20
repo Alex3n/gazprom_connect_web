@@ -7,6 +7,7 @@ import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
 import 'package:gazpromconnectweb/ui/pages/BasicProgramming.dart';
 import 'package:gazpromconnectweb/ui/pages/EditProfilePage.dart';
 import 'package:gazpromconnectweb/ui/pages/Home.dart';
+import 'package:gazpromconnectweb/ui/pages/NewsPage.dart';
 import 'package:gazpromconnectweb/ui/pages/ProfilePage.dart';
 import 'package:gazpromconnectweb/ui/pages/RoomStudent.dart';
 import 'package:gazpromconnectweb/ui/pages/RoomTeacher.dart';
@@ -28,7 +29,7 @@ Map <String, dynamic> userData;
 Map <String, dynamic> userDataBase;
 User userFB;
 
-bool isReleaseVersion = true; //ПОСТАВИТЬ true перед деплоем, проверять всегда
+bool isReleaseVersion = false; //ПОСТАВИТЬ true перед деплоем, проверять всегда
 String debagUserID = "CBVLsIYlJpX1RwElGvbuiUmRP6s1";
 String getUserId () {
   return isReleaseVersion? userFB.uid: debagUserID;
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
         '/roomteacher':(BuildContext context) => RoomTeacher(),
         '/basicprogramming':(BuildContext context) => BasicProgramming(),
         '/teamteacher':(BuildContext context) => TeamTeacher(),
-        '/teamstudent':(BuildContext context) => TeamStudent(),
+        '/mainscreen':(BuildContext context) => NewsPage(),
         '/dialoglogin':(BuildContext context) => DialogLogin(),
         '/registration':(BuildContext context) => Registration(),
         '/profile':(BuildContext context) => ProfilePage(),

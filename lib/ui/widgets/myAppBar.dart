@@ -35,7 +35,23 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                   )
               ),
               onPressed: () {
-                 // TODO   Переход на страницу новостей из fcnn ветка 
+                Navigator.of(context).pushNamed('/mainscreen');
+              },
+            ),
+          ),
+          Expanded(
+            child: RaisedButton(
+              color: Colors.indigo,
+              hoverColor: Colors.indigo[400],
+              child: Text("Команда" ,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w300,
+                  )
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/teamstudent');
               },
             ),
           ),
@@ -84,7 +100,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                                 Navigator.pushNamed(context, '/newuserroom'));
                           } else {
                             userDataBase = value.data();
-                            if (userDataBase["role"] == "admin") {
+                            if (userDataBase["role"] == "teacher") {
                               Navigator.pushNamed(context, '/roomteacher');
                             } else if (userDataBase["role"] == "student") {
                               Navigator.pushNamed(context, '/roomstudent');
