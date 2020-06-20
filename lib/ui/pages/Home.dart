@@ -70,6 +70,18 @@ class _HomeState extends State<Home> {
     print("taped");
   }
 }
+
+String getDepsNames(List <dynamic> listDep) {
+  String names = "";
+  if (listDep !=null)
+  listDep.forEach((element) {
+    names = names + element['title'] + " ";
+  });
+  if (names == "") names= "все";
+  return names;
+}
+
+
 Widget buildMYColumn({DocumentSnapshot document}) {
   String imageUrl = document.data()['image'];
   return buildMyCardWithPaddingNotOnTap(Column(
@@ -155,7 +167,7 @@ Widget buildMYColumn({DocumentSnapshot document}) {
                 padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                 child: new Text(
                   //todo подгрузка отделов
-                  "отделы: ...",
+                  "отделы: " + getDepsNames(document.data()['departments']),
                   style: new TextStyle(
                       fontSize: 14.0,
                       color: const Color(0xFF000000),
