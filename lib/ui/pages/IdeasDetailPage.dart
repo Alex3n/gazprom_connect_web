@@ -15,39 +15,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 
-class NewsDetailPage extends StatefulWidget {
-  String _title;
-  String _description;
-  String _image;
-  String _date;
-  String _likes;
-  String _documentID;
-  bool _liked;
-  bool commentsBlocked;
-
+class IdeasDetailPage extends StatefulWidget {
+DocumentSnapshot document;
+bool commentsBlocked=false;
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return NewsDetailState(
-        _documentID, _title, _description, _image, _date, _likes, _liked);
+    return IdeasDetailState(document);
   }
 
-  NewsDetailPage(this._documentID, this._title, this._description, this._image,
-      this._date, this._likes, this._liked,
-      {this.commentsBlocked = false});
+  IdeasDetailPage(this.document);
 }
 
-class NewsDetailState extends State<NewsDetailPage> {
+class IdeasDetailState extends State<IdeasDetailPage> {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  String _title;
-  String _description;
-  String _image;
-  String _date;
-  String _likes;
-  String _documentID;
+  DocumentSnapshot document;
   bool _liked;
   Color _color;
 
@@ -55,12 +40,11 @@ class NewsDetailState extends State<NewsDetailPage> {
   bool _result;
   List<CommentModel> _commentList = new List();
 
-  NewsDetailState(this._documentID, this._title, this._description, this._image,
-      this._date, this._likes, this._liked);
+  IdeasDetailState(this.document);
 
   @override
   void initState() {
-    _getComments(_documentID);
+    _getIdeas(document.id);
     super.initState();
 
   }
@@ -85,7 +69,7 @@ class NewsDetailState extends State<NewsDetailPage> {
               "like": FieldValue.arrayRemove(List.unmodifiable([_userId]))
             }));
         _color = Color(0xFF000000);
-        _likes = (int.parse(_likes) - 1).toString();
+        document.data()['like'] = (int.parse(document.data()['like']) - 1).toString();
       } else {
         //не делал лайк
         _result = true;
@@ -94,7 +78,7 @@ class NewsDetailState extends State<NewsDetailPage> {
               "like": FieldValue.arrayUnion(List.unmodifiable([_userId]))
             }));
         _color = Color(0xFFFF0000);
-        _likes = (int.parse(_likes) + 1).toString();
+        document.data()['like'] = (int.parse(document.data()['like']) + 1).toString();
       }
     });
   }
@@ -112,12 +96,12 @@ class NewsDetailState extends State<NewsDetailPage> {
     return Scaffold(
       body: MainCollapsingToolbar(
         pages: <Widget>[
-          buildDateAndLikes(_documentID, _title, _description, _date, _likes)
+          buildDateAndLikes(document.id, document.data()['title'].toString(), document.data()['description'].toString(), document.data()['date'].toString(), document.data()['like'].toString())
         ],
         titleMain:  '',
         headers: [""],
         imageHeader:
-        MyImageWidget(url: _image),
+        MyImageWidget(url: document.data()['image']),
         expandleHeight: 500,
       ),
 
@@ -193,7 +177,7 @@ class NewsDetailState extends State<NewsDetailPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            AddCommentPage(_documentID),
+                            AddCommentPage(document.id),
                       ),
                     );
                   },
@@ -213,7 +197,7 @@ class NewsDetailState extends State<NewsDetailPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            AddCommentPage(_documentID),
+                            AddCommentPage(document.id),
                       ),
                     );
                   },
@@ -237,7 +221,7 @@ class NewsDetailState extends State<NewsDetailPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CommentWidget(
-                    _documentID,
+                    document.id,
                     commentsBlocked: widget.commentsBlocked,
                   ),
                 ),
@@ -257,7 +241,7 @@ class NewsDetailState extends State<NewsDetailPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddCommentPage(_documentID),
+                        builder: (context) => AddCommentPage(document.id),
                       ),
                     );
                   }),
@@ -275,12 +259,12 @@ class NewsDetailState extends State<NewsDetailPage> {
       return false;
     }
   }
-  Future<List<CommentModel>> _getComments(String newsId) async {
+  Future<List<CommentModel>> _getIdeas(String newsId) async {
     List<CommentModel> commModelList = new List();
     await store
-        .collection("news")
-        .doc(_documentID)
-        .collection("comments")
+        .collection("ideas")
+        .doc(document.id)
+        .collection("solutions")
         .onSnapshot
         .listen((snapshot) => snapshot.docs
         .forEach((i) => commModelList.add(CommentModel.fromMap(i.data()))));

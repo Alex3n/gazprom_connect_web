@@ -1,6 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/data.dart';
 import 'package:gazpromconnectweb/main.dart';
+import 'package:gazpromconnectweb/ui/pages/IdeasDetailPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
@@ -28,12 +29,15 @@ class _HomeState extends State<Home> {
         appBar: buildAppBar(context),
         body: Container(
             padding: EdgeInsets.all(20),
-            child: Column(children: <Widget>[
-              myGradientButton(context,
-                                funk:() {
-                  Navigator.of(context).pushNamed('/ideapage');
-                },
-                btnText: 'Добавить идею',
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+              Container(width: 300,
+                child: myGradientButton(context,
+                                  funk:() {
+                    Navigator.of(context).pushNamed('/ideapage');
+                  },
+                  btnText: 'Добавить идею',
+                ),
               ),
               //                funk:() {
 //                  Navigator.of(context).pushNamed('/ideapage');
@@ -58,8 +62,8 @@ class _HomeState extends State<Home> {
                                 child: buildMYColumn(
                                     document: snapshot.data.docs.elementAt(index)),
                                 onTap: () {
-                                  _handleTap(snapshot.data.docs.elementAt(index).data(),
-                                      id: snapshot.data.docs.elementAt(index).id);
+                                  _handleTap(snapshot.data.docs.elementAt(index),
+                                     );
                                 },
                               );
                             });
@@ -70,8 +74,18 @@ class _HomeState extends State<Home> {
 
             ])));
   }
-  void _handleTap(Map<String, dynamic> data, {String id}) {
 
+
+
+  void _handleTap(DocumentSnapshot document) {
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => IdeasDetailPage(document),
+        ),
+      );
+    });
     print("taped");
   }
 }
