@@ -41,6 +41,7 @@ class _AddCommentPageState extends State<AddCommentPage> {
 
   @override
   void initState() {
+    getUser();
     super.initState();
   }
 
@@ -98,15 +99,17 @@ class _AddCommentPageState extends State<AddCommentPage> {
 
   void addComment(String comment, String newsId) async {
 
-    String avatar =userdata["photoURL"] != null ? userdata["photoURL"] : "";
-    String name = userdata["name"] != null ? userdata["name"] : "";
+
+
+    String avatar =userDataBase["photoURL"] != null ? userDataBase["photoURL"] : "";
+    String name = userDataBase["name"] != null ? userDataBase["name"] : "";
     String id = getUserId();
     commentId == null ? await store
         .collection("news")
         .doc(newsId)
         .collection("comments")
-        .doc(DateTime.now().millisecondsSinceEpoch.toString())
-        .set(Map.from({
+
+        .add(Map.from({
       "comment" : comment,
       "author" : name,
       "authorId" : id,
