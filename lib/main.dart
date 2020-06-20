@@ -9,13 +9,9 @@ import 'package:gazpromconnectweb/ui/pages/BasicProgramming.dart';
 import 'package:gazpromconnectweb/ui/pages/EditProfilePage.dart';
 import 'package:gazpromconnectweb/ui/pages/Home.dart';
 import 'package:gazpromconnectweb/ui/pages/NewsPage.dart';
+import 'package:gazpromconnectweb/ui/pages/Proekts.dart';
 import 'package:gazpromconnectweb/ui/pages/ProfilePage.dart';
-import 'package:gazpromconnectweb/ui/pages/RoomStudent.dart';
-import 'package:gazpromconnectweb/ui/pages/RoomTeacher.dart';
-import 'package:gazpromconnectweb/ui/pages/TeamStudent.dart';
-import 'package:gazpromconnectweb/ui/pages/TeamTeacher.dart';
 import 'package:gazpromconnectweb/ui/pages/ideaPage.dart';
-import 'package:gazpromconnectweb/ui/pages/newUserRoom.dart';
 import 'package:gazpromconnectweb/ui/pages/registration.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,18 +74,15 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/':(BuildContext context) => Home(),
-        '/roomstudent':(BuildContext context) => RoomStudent(),
-        '/roomteacher':(BuildContext context) => RoomTeacher(),
         '/basicprogramming':(BuildContext context) => BasicProgramming(),
-        '/teamteacher':(BuildContext context) => TeamTeacher(),
         '/mainscreen':(BuildContext context) => NewsPage(),
         '/dialoglogin':(BuildContext context) => DialogLogin(),
         '/registration':(BuildContext context) => Registration(),
         '/profile':(BuildContext context) => ProfilePage(),
         '/editprofile':(BuildContext context) => EditProfilePage(),
-        '/newuserroom':(BuildContext context) => NewUserRoom(),
         '/adminpanel': (BuildContext context) => AdminPanel(),
         '/ideapage':(BuildContext context) => IdeaPage(),
+        '/proekts':(BuildContext context) => Proekts(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -1,4 +1,4 @@
-import 'package:gazpromconnectweb/ui/pages/RoomStudent.dart';
+
 import 'package:gazpromconnectweb/ui/pages/lectionPage.dart';
 import 'package:firebase/firestore.dart';
 import 'package:flutter/material.dart';

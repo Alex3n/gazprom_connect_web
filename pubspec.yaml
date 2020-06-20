@@ -86,4 +86,6 @@ flutter:
         - asset: fonts/proximanova-Regular.ttf
   uses-material-design: true
   assets:
-    - image/mainimage.png
+        - image/mainimage.png
+        - image/gazprombankbluelogo.png
+        - image/gazprombankwhitelogo.png
