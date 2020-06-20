@@ -26,18 +26,33 @@ class _IdeaPageState extends State<IdeaPage> {
             child: Container(
               margin: EdgeInsets.all(10),
               width: 1200,
-              decoration:
-                  BoxDecoration(border: Border.all(color: maingazpromsilver),borderRadius: BorderRadius.all(Radius.circular(40.0))),
+              decoration: BoxDecoration(
+                  border: Border.all(color: maingazpromsilver),
+                  borderRadius: BorderRadius.all(Radius.circular(40.0))),
               child: Column(
                 children: <Widget>[
-                  Text('Проблема'),
-                  buildTextForm(nameProblemcontroller,label: 'Название проблемы'),
-                  buildTextForm(overviewProblemcontroller,label: 'описание проблемы'),
-                  buildTextForm(otdelcontroller,label: 'отделение'),
-                  Divider(height: 50,),
+                  Padding(padding: EdgeInsets.all(20.0),
+                  child:
+                  Text('Проблема'),),
+                  buildTextForm(nameProblemcontroller,
+                      label: 'Название проблемы'),
+                  buildTextForm(overviewProblemcontroller,
+                      label: 'описание проблемы'),
+                  buildTextForm(otdelcontroller, label: 'отделение'),
+                  Divider(
+                    height: 50,
+                  ),
                   Text('Решение'),
-                  buildTextForm(nameProblemcontroller,label: 'Напишите решение'),
-                  Center(child: RaisedButton(onPressed: (){},child: Text('Сохранить',),),),
+                  buildTextForm(nameProblemcontroller,
+                      label: 'Напишите решение'),
+                  Center(
+                    child: RaisedButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Сохранить',
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
