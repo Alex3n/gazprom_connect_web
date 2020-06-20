@@ -5,7 +5,6 @@ import 'package:gazpromconnectweb/themes/custom_theme.dart';
 import 'package:gazpromconnectweb/themes/themes.dart';
 import 'package:gazpromconnectweb/ui/pages/AdminPanel.dart';
 import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
-import 'package:gazpromconnectweb/ui/pages/BasicProgramming.dart';
 import 'package:gazpromconnectweb/ui/pages/EditProfilePage.dart';
 import 'package:gazpromconnectweb/ui/pages/Home.dart';
 import 'package:gazpromconnectweb/ui/pages/NewsPage.dart';
@@ -24,6 +23,9 @@ AuthService authService;
 bool blIsSignedIn = false;
 Firestore store = firestore();
 bool isDarkTheme = false;
+
+Map <String, Object> userdata;
+
 
 SharedPreferences prefs;
 Map <String, dynamic> curUser;
@@ -80,7 +82,6 @@ class MyApp extends StatelessWidget {
         '/':(BuildContext context) => Home(),
         '/roomstudent':(BuildContext context) => RoomStudent(),
         '/roomteacher':(BuildContext context) => RoomTeacher(),
-        '/basicprogramming':(BuildContext context) => BasicProgramming(),
         '/teamteacher':(BuildContext context) => TeamTeacher(),
         '/mainscreen':(BuildContext context) => NewsPage(),
         '/dialoglogin':(BuildContext context) => DialogLogin(),
