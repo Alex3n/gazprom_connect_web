@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gazpromconnectweb/func/mydb.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyTexts.dart';
+import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 
@@ -82,6 +83,10 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
 
   Widget buildMYColumn({DocumentSnapshot document}) {
     String imageUrl = document.data()['image'];
+    int likes = 0;
+    if  (document.data()['like'] != null) {
+      likes = document.data()['like'];
+    }
     return buildMyCardWithPaddingNotOnTap(Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +154,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(2, 0, 8, 0),
                     child: new Text(
-                      document.data()['like'].toString(),
+                      likes.toString(),
                       style: new TextStyle(
                           fontSize: 14.0,
                           color: Color(0xFFFF0000),
@@ -161,6 +166,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                     /*_likeHandleTap(document);*/
                   },
                 ),
+                document.data()['date'] ==null ? Container () :
                 new Text(
                   formatDate(
                       DateTime.fromMillisecondsSinceEpoch(
@@ -184,6 +190,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                         fontFamily: "Roboto"),
                   ),
                 ),
+                document.data()['tags'] ==null ? Container () :
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                   child: new Text(
@@ -236,6 +243,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
     final controllerPhotoUrl = TextEditingController();
     final controllerTags = TextEditingController();
     final controllerSolution = TextEditingController();
+    List <Map<String, dynamic>> listDeps = [];
 
     if (data == null) {
       data = Map();
@@ -256,7 +264,8 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'description': controllerDescription.text.toString(),
           'image': controllerPhotoUrl.text,
           'tags': controllerTags.text,
-          'solution': controllerSolution.text
+          'solution': controllerSolution.text,
+          'departments' : listDeps
         };
 
         addNewDoc(context, "ideas", newProduct, whenDone: () {
@@ -274,7 +283,8 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'description': controllerDescription.text,
           'image': controllerPhotoUrl.text,
           'tags': controllerTags.text,
-          'solution': controllerSolution.text
+          'solution': controllerSolution.text,
+          'departments' : listDeps
         };
 
         updateDoc(context, newProduct, collection: "ideas", doc: id,
@@ -295,6 +305,18 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
         });
       }
     }
+    void chooseDep(Map <String, dynamic> data) {
+      setState(() {
+        listDeps.add(data);
+      });
+    }
+    String getDepsNames() {
+      String names = "";
+      listDeps.forEach((element) {
+        names = names + element['title'] + " ";
+      });
+      return names;
+    }
 
     return ListView(
       children: <Widget>[
@@ -308,6 +330,88 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
         buildTextForm(controllerTags, hint: 'теги', label: 'теги'),
         buildTextForm(controllerPhotoUrl,
             hint: 'ссылка на фото', label: 'ссылка на фото'),
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text('актуально для: ' + (listDeps.isEmpty
+                  ? "всех сотрудников"
+                  : getDepsNames())),
+              myGradientButton(context,
+                funk: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) =>
+                      new Dialog(
+                        child: Container(
+                          width: 800,
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Выберите отдел'),
+                              ),
+                              Expanded(
+                                child: Container(child: StreamBuilder(
+                                  stream: store
+                                      .collection("departments")
+                                      .onSnapshot,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<
+                                          dynamic> snapshot) {
+                                    if (snapshot.hasError)
+                                      return new Text(
+                                          'Error: ${snapshot.error}');
+                                    switch (snapshot
+                                        .connectionState) {
+                                      case ConnectionState.waiting:
+                                        return new Text(
+                                            'Загрузка...');
+                                      default:
+                                        return new ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemCount: snapshot.data
+                                                .docs.length,
+                                            itemBuilder: (
+                                                BuildContext ctx,
+                                                int index) {
+                                              return GestureDetector(
+                                                child: Padding(
+                                                  padding: EdgeInsets
+                                                      .all(10),
+                                                  child: Text(
+                                                    snapshot.data.docs
+                                                        .elementAt(
+                                                        index)
+                                                        .data()['title']
+                                                        .toString(),),),
+                                                onTap: () {
+                                                  chooseDep(
+                                                      snapshot.data
+                                                          .docs
+                                                          .elementAt(
+                                                          index)
+                                                          .data());
+                                                  Navigator.pop(context);
+                                                },
+                                              );
+                                            }
+                                        );
+                                    }
+                                  },),),
+                              )
+                            ],
+                          ),
+                        ),
+                      ));
+                },
+                btnText: 'Выбрать отдел',
+              ),
+            ],
+          ),
+        ),
         new FlatButton(
             key: null,
             onPressed: () =>
