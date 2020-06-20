@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         appBar: buildAppBar(context),
         body: Container(
             padding: EdgeInsets.all(20),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
                 children: <Widget>[
                   Container(width: 300,
                     child: myGradientButton(context,
