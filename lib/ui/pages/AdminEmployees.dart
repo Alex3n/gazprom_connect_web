@@ -231,7 +231,7 @@ class _AdminEmployeesPageState extends State<AdminEmployeesPage> {
             child: UploadImageWidget(controllerUrl: controllerPhotoUrl)),
         buildTextForm(controllerFullNameText, hint: 'ФИО'),
         //todo подгрузка списка
-        _dropDownButton(['hr', 'столовая']),
+        _dropDownButton(['hr', 'it']),
         buildTextForm(controllerPhoneNumber, hint: 'номер телефона'),
         buildTextForm(controllerEmail, hint: 'e-mail'),
         buildTextForm(controllerPhotoUrl,
