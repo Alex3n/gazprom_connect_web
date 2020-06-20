@@ -10,25 +10,25 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 import '../../main.dart';
 import 'AdminPanel.dart';
 
-class AdminNewsPage extends StatefulWidget {
+class AdminEmployeesPage extends StatefulWidget {
   @override
-  _AdminNewsPageState createState() => _AdminNewsPageState();
+  _AdminEmployeesPageState createState() => _AdminEmployeesPageState();
 }
 
-class _AdminNewsPageState extends State<AdminNewsPage> {
+class _AdminEmployeesPageState extends State<AdminEmployeesPage> {
   @override
   Widget build(BuildContext context) {
     switch (adminContent) {
-      case AdminContent.editNews:
-      case AdminContent.addNews:
-        return buildAddNews(context, data: currentData, id: currentId);
+      case AdminContent.editEmployee:
+      case AdminContent.addEmployee:
+        return buildAddEmployee(context, data: currentData, id: currentId);
         break;
       default:
-        return buildNewsPage(context);
+        return buildEmployeesPage(context);
     }
   }
 
-  Widget buildNewsPage(BuildContext context) {
+  Widget buildEmployeesPage(BuildContext context) {
     return ListView(
       children: <Widget>[
         FlatButton(
@@ -36,13 +36,13 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
             currentData = null;
             currentId = null;
             setState(() {
-              adminContent = AdminContent.addNews;
+              adminContent = AdminContent.addEmployee;
             });
           },
-          child: Text("Создать новость"),
+          child: Text("Добавить сотрудника"),
         ),
         StreamBuilder<QuerySnapshot>(
-          stream: store.collection("news").orderBy("date", "desc").onSnapshot,
+          stream: store.collection("employees").orderBy("name").onSnapshot,
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
@@ -89,7 +89,7 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: new Text(
-              document.data()['title'],
+              document.data()['name'],
               style: new TextStyle(
                   fontSize: 20.0,
                   color: const Color(0xFF000000),
@@ -97,48 +97,17 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
                   fontFamily: "Roboto"),
             ),
           ),
-          new Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new GestureDetector(
-                  child: new Icon(Icons.star,
-//                          custicon.MyFlutterApp.news,
-                      color: Color(0xFFFF0000),
-                      size: 22.0),
-                  onTap: () {
-                    /*_likeHandleTap(document);*/
-                  },
-                ),
-                new GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: new Text(
-                      List.from(document.data()['like']).length.toString(),
-                      style: new TextStyle(
-                          fontSize: 14.0,
-                          color: Color(0xFFFF0000),
-                          fontWeight: FontWeight.w300,
-                          fontFamily: "Roboto"),
-                    ),
-                  ),
-                  onTap: () {
-                    /*_likeHandleTap(document);*/
-                  },
-                ),
-                new Text(
-                  formatDate(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          int.parse(document.data()['date'])),
-                      [dd, '.', mm, '.', yyyy]),
-                  style: new TextStyle(
-                      fontSize: 14.0,
-                      color: const Color(0xFF000000),
-                      fontWeight: FontWeight.w300,
-                      fontFamily: "Roboto"),
-                )
-              ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: new Text(
+              document.data()['department'],
+              style: new TextStyle(
+                  fontSize: 14.0,
+                  color: Color(0xFFFF0000),
+                  fontWeight: FontWeight.w300,
+                  fontFamily: "Roboto"),
+            ),
+          ),
         ]));
   }
 
@@ -146,7 +115,7 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
     currentData = data;
     currentId = id;
     setState(() {
-      adminContent = AdminContent.editNews;
+      adminContent = AdminContent.editEmployee;
     });
     print("taped");
   }
@@ -175,80 +144,81 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
     );
   }
 
-  Widget buildAddNews(BuildContext context,
+  String department;
+
+  Widget buildAddEmployee(BuildContext context,
       {Map<String, dynamic> data, String id}) {
     final controllerFullNameText = TextEditingController();
-    final controllerPushTime = TextEditingController();
-    final controllerTime = TextEditingController();
-    final controllerDescription = TextEditingController();
+    final controllerPhoneNumber = TextEditingController();
+    final controllerEmail = TextEditingController();
+    final controllerStartDay = TextEditingController();
     final controllerPhotoUrl = TextEditingController();
 
-    DateTime newsTime = DateTime.now();
+    DateTime dateTime = DateTime.now();
 
     if (data == null) {
       data = Map();
     }
 
     if (data.isNotEmpty) {
-      newsTime = DateTime.fromMillisecondsSinceEpoch(int.parse(data['date']),
+      dateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(data['date']),
           isUtc: true);
-      controllerFullNameText.text = data["title"].toString();
-      controllerPushTime.text = data["pushTime"].toString();
-      controllerTime.text =
-          '${newsTime.day} - ${newsTime.month} - ${newsTime.year}  ' +
-              '${newsTime.hour} : ${newsTime.minute}';
-      controllerDescription.text = data["description"].toString();
+      controllerFullNameText.text = data["name"].toString();
+      department = data["department"];
+      controllerPhoneNumber.text = data["phoneNumber"];
+      controllerEmail.text = data["email"];
       controllerPhotoUrl.text = data["image"];
+      controllerStartDay.text =
+          '${dateTime.day} - ${dateTime.month} - ${dateTime.year}  ' +
+              '${dateTime.hour} : ${dateTime.minute}';
     }
 
     void clickWrite(BuildContext context) async {
       if (controllerFullNameText.text.isNotEmpty) {
         Map<String, dynamic> newProduct = {
-          'title': controllerFullNameText.text,
-          'date': "${newsTime.millisecondsSinceEpoch}",
-          'pushTime': newsTime.millisecondsSinceEpoch +
-              int.parse((controllerPushTime.text == null ||
-                      controllerPushTime.text == "")
-                  ? "0"
-                  : controllerPushTime.text.toString()),
-          'description': controllerDescription.text.toString(),
+          'name': controllerFullNameText.text,
+          'department': department,
+          'phoneNumber': controllerPhoneNumber.text,
+          'email': controllerEmail.text,
           'image': controllerPhotoUrl.text,
-          'like': <String>{"0"}
+          'date': "${dateTime.millisecondsSinceEpoch}",
         };
 
-        addNewDoc(context, "news", newProduct, whenDone: () {
+        addNewDoc(context, "employees", newProduct, whenDone: () {
           setState(() {
-            adminContent = AdminContent.news;
+            adminContent = AdminContent.employees;
           });
         });
       }
+      print(department);
     }
 
     void clickUpdate(BuildContext context) {
       if (controllerFullNameText.text.isNotEmpty) {
         Map<String, Object> newProduct = {
-          'title': controllerFullNameText.text,
-          'date': "${newsTime.millisecondsSinceEpoch}",
-          'pushTime':
-              "${newsTime.millisecondsSinceEpoch + int.parse(controllerPushTime.text)}",
-          'description': controllerDescription.text,
+          'name': controllerFullNameText.text,
+          'department': department,
+          'phoneNumber': controllerPhoneNumber.text,
+          'email': controllerEmail.text,
           'image': controllerPhotoUrl.text,
-          'like': <String>{"345"}
+          'date': "${dateTime.millisecondsSinceEpoch}",
         };
 
-        updateDoc(context, newProduct, collection: "news", doc: id,
-            whenDone: () {setState(() {
-              adminContent = AdminContent.news;
-            });
+        updateDoc(context, newProduct, collection: "employees", doc: id,
+            whenDone: () {
+          setState(() {
+            adminContent = AdminContent.employees;
+          });
         });
       }
+      print(department);
     }
 
     void clickDelete(BuildContext context) async {
       if (data.isNotEmpty) {
-        deleteDoc(context, "news/" + id, data, whenDone: () {
+        deleteDoc(context, "employees/" + id, data, whenDone: () {
           setState(() {
-            adminContent = AdminContent.news;
+            adminContent = AdminContent.employees;
           });
         });
       }
@@ -259,23 +229,24 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
         Container(
             height: MediaQuery.of(context).size.height / 4,
             child: UploadImageWidget(controllerUrl: controllerPhotoUrl)),
-        buildTextForm(controllerFullNameText, hint: 'Заголовок'),
-        buildTextForm(controllerDescription,
-            hint: 'описание', label: 'описание', height: 180.0),
-        buildTextForm(controllerPushTime, hint: 'время пуш уведомления'),
+        buildTextForm(controllerFullNameText, hint: 'ФИО'),
+        //todo подгрузка списка
+        _dropDownButton(['hr', 'столовая']),
+        buildTextForm(controllerPhoneNumber, hint: 'номер телефона'),
+        buildTextForm(controllerEmail, hint: 'e-mail'),
         buildTextForm(controllerPhotoUrl,
             hint: 'ссылка на фото', label: 'ссылка на фото'),
-        buildTextForm(controllerTime,
-            hint: "Текущее время", label: "Время публикации", onTap: () {
+        buildTextForm(controllerStartDay,
+            hint: "дата приема на работу",
+            label: "дата приема на работу", onTap: () {
           DatePicker.showDateTimePicker(context,
               showTitleActions: true,
               minTime: DateTime(2019, 3, 5),
               maxTime: DateTime(2021, 6, 7), onConfirm: (date) {
             print('confirm $date');
-            controllerTime.text =
+            controllerStartDay.text =
                 '${date.day} - ${date.month} - ${date.year}  ' +
                     '${date.hour} : ${date.minute}';
-            newsTime = date;
           }, currentTime: DateTime.now(), locale: LocaleType.ru);
         }),
         new FlatButton(
@@ -305,5 +276,34 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
             : Container()
       ],
     );
+  }
+
+  Widget _dropDownButton(List<String> list) {
+    String selected;
+    return Container(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonFormField<String>(
+          hint: Text(department),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+          ),
+          value: selected,
+          items: list
+              .map((_value) => DropdownMenuItem(
+                    child: Text(
+                      _value,
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: const Color(0xFF000000),
+                          fontWeight: FontWeight.w200,
+                          fontFamily: "ProximaNovaBold"),
+                    ),
+                    value: _value,
+                  ))
+              .toList(),
+          onChanged: (value) {
+            department = value;
+          },
+        ));
   }
 }

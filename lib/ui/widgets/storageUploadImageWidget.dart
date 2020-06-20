@@ -34,7 +34,7 @@ class UploadImageWidget extends StatefulWidget {
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
   fb.StorageReference storageReference =
-      fb.storage().refFromURL('gs://fcnn-8e0f7.appspot.com');
+      fb.storage().refFromURL('gs://gazpromconnect.appspot.com/');
   fb.UploadTask _uploadTask;
 
   String fullUrl;
@@ -104,7 +104,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
 
                         if (progressPercent == 100) {
                           widget.controllerUrl.text =
-                              'gs://fcnn-8e0f7.appspot.com/' + filePath;
+                              'gs://gazpromconnect.appspot.com/' + filePath;
                           fb
                               .storage()
                               .refFromURL(widget.controllerUrl.text)
