@@ -13,6 +13,7 @@ import 'package:gazpromconnectweb/ui/pages/RoomStudent.dart';
 import 'package:gazpromconnectweb/ui/pages/RoomTeacher.dart';
 import 'package:gazpromconnectweb/ui/pages/TeamStudent.dart';
 import 'package:gazpromconnectweb/ui/pages/TeamTeacher.dart';
+import 'package:gazpromconnectweb/ui/pages/ideaPage.dart';
 import 'package:gazpromconnectweb/ui/pages/newUserRoom.dart';
 import 'package:gazpromconnectweb/ui/pages/registration.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
         '/profile':(BuildContext context) => ProfilePage(),
         '/editprofile':(BuildContext context) => EditProfilePage(),
         '/newuserroom':(BuildContext context) => NewUserRoom(),
+        '/ideapage':(BuildContext context) => IdeaPage(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
