@@ -1,4 +1,5 @@
 import 'package:gazpromconnectweb/ui/pages/AdminDepartment.dart';
+import 'package:gazpromconnectweb/ui/pages/AdminEmployees.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ AdminContent adminContent = AdminContent.news;
 enum AdminContent {
   news,
   departments,
-  employee,
+  employees,
   editNews,
   addNews,
   addDepartment,
@@ -39,7 +40,7 @@ class _AdminPanelState extends State<AdminPanel> {
         body: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(flex: 2, child: buildmenuColumn(context)),
+            Expanded(flex: 2, child: _buildMenuColumn(context)),
             Expanded(flex: 7, child: _content(adminContent))
           ],
         ));
@@ -50,15 +51,15 @@ class _AdminPanelState extends State<AdminPanel> {
       case AdminContent.departments:
         return AdminDepartmentPage();
         break;
-      case AdminContent.employee:
-        return Center(child: Text("сотрудники"));
+      case AdminContent.employees:
+        return AdminEmployeesPage();
         break;
       default:
         return AdminNewsPage();
     }
   }
 
-  Widget buildmenuColumn(BuildContext context) {
+  Widget _buildMenuColumn(BuildContext context) {
     EdgeInsets _padding = EdgeInsets.fromLTRB(10.0, 8, 10.0, 8);
     EdgeInsets _margin = EdgeInsets.fromLTRB(4, 2, 4, 2);
     return SingleChildScrollView(
@@ -76,7 +77,7 @@ class _AdminPanelState extends State<AdminPanel> {
               context: context,
               margin: _margin),
           buildMyCardWithPadding(Text("Редактор сотрудников"),
-              content: AdminContent.employee,
+              content: AdminContent.employees,
               padding: _padding,
               context: context,
               margin: _margin),
