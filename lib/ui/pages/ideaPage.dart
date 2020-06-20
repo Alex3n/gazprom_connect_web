@@ -5,6 +5,7 @@ import 'package:gazpromconnectweb/main.dart';
 import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyTexts.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
+import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 
 class IdeaPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _IdeaPageState extends State<IdeaPage> {
   TextEditingController overviewProblemcontroller = TextEditingController();
   TextEditingController otdelcontroller = TextEditingController();
   TextEditingController decisionController = TextEditingController();
+  final controllerPhotoUrl = TextEditingController();
   List <Map<String, dynamic>> listDeps = [];
 
   String getDepsNames() {
@@ -135,10 +137,13 @@ class _IdeaPageState extends State<IdeaPage> {
                                 ));
                           },
                           child: Text('Выбрать отдел'),
-                        )
+                        ),
                       ],
                     ),
                   ),
+                  Container(
+                      height: MediaQuery.of(context).size.height / 4,
+                      child: UploadImageWidget(controllerUrl: controllerPhotoUrl)),
                   Text('Решение'),
                   buildTextForm(decisionController,
                       label: 'Напишите решение'),
@@ -166,7 +171,7 @@ class _IdeaPageState extends State<IdeaPage> {
       Map<String, dynamic> newProduct = {
         'title': nameProblemcontroller.text,
         'description': overviewProblemcontroller.text.toString(),
-        'image': "controllerPhotoUrl.text",
+        'image': controllerPhotoUrl.text,
         'departments' : listDeps
       };
 
