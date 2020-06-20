@@ -1,3 +1,4 @@
+import 'package:gazpromconnectweb/ui/pages/AdminDepartment.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,17 @@ String currentId;
 Map<String, Object> currentData = Map();
 AdminContent adminContent = AdminContent.news;
 
-enum AdminContent { news, department, employee, editNews, addNews }
+enum AdminContent {
+  news,
+  departments,
+  employee,
+  editNews,
+  addNews,
+  addDepartment,
+  editDepartment,
+  addEmployee,
+  editEmployee
+}
 
 class AdminPanel extends StatefulWidget {
   @override
@@ -16,7 +27,6 @@ class AdminPanel extends StatefulWidget {
 }
 
 class _AdminPanelState extends State<AdminPanel> {
-
   @override
   void initState() {
     super.initState();
@@ -37,8 +47,8 @@ class _AdminPanelState extends State<AdminPanel> {
 
   Widget _content(AdminContent content) {
     switch (content) {
-      case AdminContent.department:
-        return Center(child: Text("отделы"));
+      case AdminContent.departments:
+        return AdminDepartmentPage();
         break;
       case AdminContent.employee:
         return Center(child: Text("сотрудники"));
@@ -61,7 +71,7 @@ class _AdminPanelState extends State<AdminPanel> {
               context: context,
               margin: _margin),
           buildMyCardWithPadding(Text("Редактор отделов"),
-              content: AdminContent.department,
+              content: AdminContent.departments,
               padding: _padding,
               context: context,
               margin: _margin),
