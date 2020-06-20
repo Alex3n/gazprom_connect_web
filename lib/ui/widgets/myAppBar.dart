@@ -42,22 +42,22 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
               },
             ),
           ),
-          Expanded(
-            child: RaisedButton(
-              color: Colors.indigo,
-              hoverColor: Colors.indigo[400],
-              child: Text("Команда" ,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w300,
-                  )
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/teamstudent');
-              },
-            ),
-          ),
+//          Expanded(
+//            child: RaisedButton(
+//              color: Colors.indigo,
+//              hoverColor: Colors.indigo[400],
+//              child: Text("Команда" ,
+//                  style: TextStyle(
+//                    color: Colors.white,
+//                    fontSize: 22,
+//                    fontWeight: FontWeight.w300,
+//                  )
+//              ),
+//              onPressed: () {
+//                Navigator.of(context).pushNamed('/');
+//              },
+//            ),
+//          ),
           Expanded(
             child: RaisedButton(
               color: Colors.indigo,
@@ -85,49 +85,16 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                 )
                 ),
                 onPressed: () {
-                  if (isReleaseVersion) {
-                    authService = new AuthService();
-                    authService.checkIsSignedIn().then((_isSignedIn) {
-                      if (_isSignedIn) {
-                        store.collection("users").doc(getUserId()).get().then((
-                            value) {
-                          if (value.data() == null || value
-                              .data()
-                              .isEmpty) {
-                            store.collection("users").doc(getUserId()).set({
-                              "name": userFB.displayName,
-                              "phone": userFB.phoneNumber,
-                              "email": userFB.email,
-                              "role": "user"
-                            }).then((value) =>
-                                Navigator.pushNamed(context, '/newuserroom'));
-                          } else {
-                            userDataBase = value.data();
-                            if (userDataBase["role"] == "teacher") {
-                              Navigator.pushNamed(context, '/roomteacher');
-                            } else if (userDataBase["role"] == "student") {
-                              Navigator.pushNamed(context, '/roomstudent');
-                            } else {
-                              Navigator.pushNamed(context, '/newuserroom');
-                            }
-                          }
-                        });
-                      }
-                      else {
-                        Navigator.of(context).pushNamed('/dialoglogin');
-                      }
-                    });
-                  }  else {
-                    Navigator.pushNamed(context, '/roomstudent');
-
-                  }
+                  Navigator.of(context).pushNamed('/proekts');
                 },
               )),
           Expanded(
               child: RaisedButton(
+                color: Colors.indigo,
+                hoverColor: Colors.indigo[400],
                 child: Text("Админ панель",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.w300,
                     )
@@ -136,9 +103,30 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                   Navigator.of(context).pushNamed('/adminpanel');
                 },
             ),
-          )
+          ),
+          Expanded(flex: 2, child: myLogo(context)),
         ],
       ),
+    ),
+  );
+}
+
+Widget myLogo(BuildContext context) {
+  return Container(
+    height: 40,
+    width: 400,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("image/gazprombankbluelogo.png"),
+                      fit: BoxFit.fitHeight,
+                      alignment: AlignmentDirectional.centerEnd))),
+        ),
+      ],
     ),
   );
 }
