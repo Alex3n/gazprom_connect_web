@@ -96,7 +96,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                     : MyImageWidget(url: document.data()['image'])),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 0, 1),
+            padding: const EdgeInsets.fromLTRB(8, 8, 0, 4),
             child: new Text(
               document.data()['title'],
               style: new TextStyle(
@@ -107,11 +107,22 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 0, 4),
+            padding: const EdgeInsets.fromLTRB(16, 4, 0, 6),
             child: Text(
-              document.data()['description'],
+              "Описание: ${document.data()['description']}",
               style: new TextStyle(
                   fontSize: 14,
+                  color: const Color(0xFF000000),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto"),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
+            child: Text(
+              "Решение: ${document.data()['solution']}",
+              style: new TextStyle(
+                  fontSize: 16,
                   color: const Color(0xFF000000),
                   fontWeight: FontWeight.w400,
                   fontFamily: "Roboto"),
@@ -224,6 +235,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
     final controllerDescription = TextEditingController();
     final controllerPhotoUrl = TextEditingController();
     final controllerTags = TextEditingController();
+    final controllerSolution = TextEditingController();
 
     if (data == null) {
       data = Map();
@@ -234,6 +246,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
       controllerDescription.text = data["description"].toString();
       controllerTags.text = data["tags"];
       controllerPhotoUrl.text = data["image"];
+      controllerSolution.text = data["solution"];
     }
 
     void clickWrite(BuildContext context) async {
@@ -242,7 +255,8 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'title': controllerFullNameText.text,
           'description': controllerDescription.text.toString(),
           'image': controllerPhotoUrl.text,
-          'tags': controllerTags.text
+          'tags': controllerTags.text,
+          'solution': controllerSolution.text
         };
 
         addNewDoc(context, "ideas", newProduct, whenDone: () {
@@ -259,7 +273,8 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'title': controllerFullNameText.text,
           'description': controllerDescription.text,
           'image': controllerPhotoUrl.text,
-          'tags': controllerTags.text
+          'tags': controllerTags.text,
+          'solution': controllerSolution.text
         };
 
         updateDoc(context, newProduct, collection: "ideas", doc: id,
@@ -289,7 +304,8 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
         buildTextForm(controllerFullNameText, hint: 'название идеи'),
         buildTextForm(controllerDescription,
             hint: 'описание', label: 'описание', height: 180.0),
-        buildTextForm(controllerTags, hint: 'теги'),
+        buildTextForm(controllerSolution, hint: 'решение', label: 'решение'),
+        buildTextForm(controllerTags, hint: 'теги', label: 'теги'),
         buildTextForm(controllerPhotoUrl,
             hint: 'ссылка на фото', label: 'ссылка на фото'),
         new FlatButton(
