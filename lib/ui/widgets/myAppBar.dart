@@ -15,10 +15,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
         Navigator.of(context).pushNamed("/profile");
       },
         child: Icon(Icons.account_circle),)
-    ],flexibleSpace: Container(
-    decoration: BoxDecoration(
-        gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure])    ),
-  ),
+    ],
     title: Container(
       height: 30,
       child: Row(
@@ -28,15 +25,9 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
         children: <Widget>[
           Expanded(
             child: RaisedButton(
-              color: Colors.indigo,
-              hoverColor: Colors.indigo[400],
+              color: gazprombankwhite,
               child: Text("Главная" ,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w300,
-                  )
-              ),
+                 style: Theme.of(context).textTheme.headline6),
               onPressed: () {
                 Navigator.of(context).pushNamed('/mainscreen');
               },
@@ -60,15 +51,9 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
 //          ),
           Expanded(
             child: RaisedButton(
-              color: Colors.indigo,
-              hoverColor: Colors.indigo[400],
+              color: gazprombankwhite,
               child: Text("Идеи",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w300,
-                  )
-              ),
+                  style: Theme.of(context).textTheme.headline6),
               onPressed: () {
                 Navigator.of(context).pushNamed('/');
               },
@@ -76,29 +61,17 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
           ),
           Expanded(
               child: RaisedButton(
-                color: Colors.indigo,
-                hoverColor: Colors.indigo[400],
-                child: Text("Проекты", style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w300,
-                )
-                ),
+                color: gazprombankwhite,
+                child: Text("Проекты", style: Theme.of(context).textTheme.headline6),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/proekts');
                 },
               )),
           Expanded(
               child: RaisedButton(
-                color: Colors.indigo,
-                hoverColor: Colors.indigo[400],
+                color: gazprombankwhite,
                 child: Text("Админ панель",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w300,
-                    )
-                ),
+                    style: Theme.of(context).textTheme.headline6),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/adminpanel');
                 },

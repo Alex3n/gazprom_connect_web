@@ -35,14 +35,15 @@ class MyThemes {
       ),
 //     Стиль текста по умолчанию для материала .
       bodyText2:TextStyle(
-          color: gazprombankwhite,
+          color: gazprombanknight,
           fontSize: 16,
           fontFamily: "ProximaNovaBold",
           letterSpacing: 1.1),
 //    для кнопок
 //     button: TextStyle(
-//       backgroundColor: maingazprombiryze,
-//       color:maingazprombiryze,
+//     color: gazprombanknight,
+//        fontSize: 15,
+//        fontFamily: "ProximaNovaBold",
 //
 //     ),
 
@@ -54,17 +55,17 @@ class MyThemes {
 
 //        Используется для основного текста в панелях приложений и диалоговых окнах (например, AppBar.title и AlertDialog.title ).
       headline6: TextStyle(
-        color: maingazprom,
-        backgroundColor:maingazprom,
-        fontSize: 5,
+        color: gazprombanknight,
+        backgroundColor:gazprombankwhite,
+        fontSize: 15,
         fontFamily: "ProximaNovaBold",
       ),
 // Используется для большого текста в диалогах (например, месяц и год в диалоге, показанном showDatePicker ).
       headline5: TextStyle(
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: "ProximaNovaBold",
         color: Colors.white,
-
+        decorationColor: gazprombanknight,
       ),
 
 //       Большой текст
