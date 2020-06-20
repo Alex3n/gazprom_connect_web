@@ -3,6 +3,7 @@ import 'package:firebase/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gazpromconnectweb/themes/custom_theme.dart';
 import 'package:gazpromconnectweb/themes/themes.dart';
+import 'package:gazpromconnectweb/ui/pages/AdminPanel.dart';
 import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
 import 'package:gazpromconnectweb/ui/pages/BasicProgramming.dart';
 import 'package:gazpromconnectweb/ui/pages/EditProfilePage.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
         '/profile':(BuildContext context) => ProfilePage(),
         '/editprofile':(BuildContext context) => EditProfilePage(),
         '/newuserroom':(BuildContext context) => NewUserRoom(),
+        '/adminpanel': (BuildContext context) => AdminPanel(),
         '/ideapage':(BuildContext context) => IdeaPage(),
       },
       theme: ThemeData(

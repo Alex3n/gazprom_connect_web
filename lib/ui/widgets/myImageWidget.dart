@@ -34,6 +34,6 @@ class _MyImageWidgetState extends State<MyImageWidget> {
               fit: BoxFit.fitHeight,
               image: NetworkImage(fullUrl))),
     );
-    throw UnimplementedError();
+
   }
 }

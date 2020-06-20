@@ -123,6 +123,20 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
                   }
                 },
               )),
+          Expanded(
+              child: RaisedButton(
+                child: Text("Админ панель",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w300,
+                    )
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/adminpanel');
+                },
+            ),
+          )
         ],
       ),
     ),
