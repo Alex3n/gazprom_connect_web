@@ -43,7 +43,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
             child: RaisedButton(
               color: Colors.indigo,
               hoverColor: Colors.indigo[400],
-              child: Text("Дом",
+              child: Text("Идеи",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -59,7 +59,7 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
               child: RaisedButton(
                 color: Colors.indigo,
                 hoverColor: Colors.indigo[400],
-                child: Text("Моя комната", style: TextStyle(
+                child: Text("Проекты", style: TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.w300,
