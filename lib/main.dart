@@ -84,9 +84,7 @@ class MyApp extends StatelessWidget {
         '/adminpanel': (BuildContext context) => AdminPanel(),
         '/ideapage':(BuildContext context) => IdeaPage(),
       },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: CustomTheme.of(context),
     );
   }
 }

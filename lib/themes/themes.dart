@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -22,54 +24,71 @@ class MyThemes {
     ),
     textTheme: TextTheme(
 
+
+//     Используется для вспомогательного текста, связанного с изображениями.
       caption: TextStyle(color: gazprombankred, fontFamily: "ProximaNovaBold",fontSize: 16 ),
+
+//     Используется для выделения текста, который в противном случае был бы bodyText2 .
       bodyText1: TextStyle(color: gazprombankazure,
         fontSize: 13,
         fontFamily: "ProximaNovaBold",
       ),
+//     Стиль текста по умолчанию для материала .
       bodyText2:TextStyle(
           color: gazprombankwhite,
           fontSize: 16,
           fontFamily: "ProximaNovaBold",
           letterSpacing: 1.1),
+//    для кнопок
+//     button: TextStyle(
+//       backgroundColor: maingazprombiryze,
+//       color:maingazprombiryze,
+//
+//     ),
 
+//    Используется для основного текста в списках (например, ListTile.title ).
+      subtitle1: TextStyle(color: appbartexstlight, fontSize: 20),
+
+//      Для текста со средним акцентом это немного меньше, чем subtitle1 .
+      subtitle2: TextStyle(color: appbartexstlight, fontSize: 20),
+
+//        Используется для основного текста в панелях приложений и диалоговых окнах (например, AppBar.title и AlertDialog.title ).
+      headline6: TextStyle(
+        color: maingazprom,
+        backgroundColor:maingazprom,
+        fontSize: 5,
+        fontFamily: "ProximaNovaBold",
+      ),
+// Используется для большого текста в диалогах (например, месяц и год в диалоге, показанном showDatePicker ).
       headline5: TextStyle(
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: "ProximaNovaBold",
         color: Colors.white,
 
       ),
 
-      headline6: TextStyle(
-          color: maingazprom,
-          fontSize: 16,
-          fontFamily: "ProximaNovaBold",
-          ),
-
-      subtitle2: TextStyle(color: appbartexstlight, fontSize: 20),
-
+//       Большой текст
       headline4: TextStyle(
           color: noactivsdrawericonlight,
           fontSize: 16,
           fontFamily: "ProximaNovaBold",
           letterSpacing: 1.1),
-
-
-
-      // боковое меню  Веделенное текст и цвет иконок
+//      Очень большой текст.
       headline3: TextStyle(
           color: gazprombankazure,
           fontSize: 18,
           fontFamily: "ProximaNovaBold",
           ),
+//      очень,очень большой тест
       headline2: TextStyle(
           color: gazprombankclearskies,
           fontSize: 22,
           fontFamily: "ProximaNovaBold",
           ),
+//      мега большой текст
       headline1: TextStyle(
         color: gazprombankclearskies,
-        fontSize: 28,
+        fontSize: 40,
         fontFamily: "ProximaNovaBold",
       ),
 
