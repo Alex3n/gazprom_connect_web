@@ -20,7 +20,6 @@ bool blIsSignedIn = false;
 Firestore store = firestore();
 bool isDarkTheme = false;
 
-Map <String, Object> userdata;
 
 
 SharedPreferences prefs;
@@ -30,12 +29,15 @@ Map <String, dynamic> userDataBase;
 User userFB;
 
 bool isReleaseVersion = false; //ПОСТАВИТЬ true перед деплоем, проверять всегда
-String debagUserID = "CBVLsIYlJpX1RwElGvbuiUmRP6s1";
+String debagUserID = "hv8o4UwxcNcXQ27uASx5NErrBqv1";
 String getUserId () {
   return isReleaseVersion? userFB.uid: debagUserID;
 }
 
+getUser () {
+   store.collection("users").doc(getUserId()).get().then((value) => userDataBase = value.data());
 
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +59,7 @@ Future<void> main() async {
       userData = curUser;
     } else {
     }
+    getUser();
   });
 
   isDarkTheme = isDarkTheme == null? false : isDarkTheme;
