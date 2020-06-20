@@ -22,6 +22,7 @@ class _MyImageWidgetState extends State<MyImageWidget> {
               })
           );
         }
+
     super.initState();
   }
 
@@ -33,5 +34,6 @@ class _MyImageWidgetState extends State<MyImageWidget> {
               fit: BoxFit.fitHeight,
               image: NetworkImage(fullUrl))),
     );
+
   }
 }

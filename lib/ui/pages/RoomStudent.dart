@@ -41,11 +41,7 @@ class _RoomStudentState extends State<RoomStudent> {
               Expanded(
                 flex: 1,
                 child: Text(isReleaseVersion? userData['name'] : "имя студента", textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.indigo[800],
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               Expanded(
@@ -76,11 +72,7 @@ class _RoomStudentState extends State<RoomStudent> {
           Expanded(
             flex: 1,
             child:
-                  Text("Занятия", style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.indigo[900])
-            ),
+                  Text("Занятия", style: Theme.of(context).textTheme.headline5),
           ),
 
           Expanded(
@@ -148,12 +140,7 @@ class _RoomStudentState extends State<RoomStudent> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(20.0),
-            child: Text("Мой опыт", style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w500,
-              color: Colors.indigo[900],
-
-            ),),
+            child: Text("Мой опыт", style: Theme.of(context).textTheme.headline5,),
 
           ),
           FlatButton(
@@ -180,12 +167,7 @@ class _RoomStudentState extends State<RoomStudent> {
                               width: 1500,
                               height: 100,
                               padding: EdgeInsets.all(8),
-                              child: Text("Добавление итогов занятия", textAlign: TextAlign.center, style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.indigo[900]
-
-                              ),
+                              child: Text("Добавление итогов занятия", textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5,
 
                               ),
                             ),
@@ -237,11 +219,7 @@ class _RoomStudentState extends State<RoomStudent> {
 
                             },
                               child: Text("Сохранить",
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.yellow[900])
-                              ),),
+                                  style: Theme.of(context).textTheme.headline5),),
                             Expanded(
                               child: Container(
                                 child: Column(
@@ -257,11 +235,7 @@ class _RoomStudentState extends State<RoomStudent> {
                   });
             },
             child: Text("Добавить",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.yellow[900])
-            ),
+                style: Theme.of(context).textTheme.headline5),
           ),
 
 

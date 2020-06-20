@@ -48,7 +48,7 @@ Widget buildTextForm(TextEditingController controller,
           fontSize: 12.0,
           color: const Color(0xFF000000),
           fontWeight: FontWeight.w200,
-          fontFamily: "Roboto"),
+          fontFamily: "ProximaNovaBold"),
     ),
   );
 }

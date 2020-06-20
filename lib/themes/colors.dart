@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 //газпром
 const maingazprom = const Color(0xFF0070BA);
@@ -12,9 +11,50 @@ const maingazpromorange = const Color(0xFFF38B00);
 const maingazpromgreen = const Color(0xFF91993E);
 const maingazpromsilver = const Color(0xFFB2B2B2);
 
+
+
+
+
+
+//цвета газпромбанк основа
+const gazprombanknight = const Color(0xFF262C40);
+const gazprombankazure = const Color(0xFF0057B6);
+const gazprombanviolet = const Color(0xFF5960EA);
+const gazprombankwhite = const Color(0xFFFFFFFF);
+const gazprombankasphalt = const Color(0xFF7C8793);
+
+//доп цвета синего
+const gazprombankdeepsea = const Color(0xFF0D356C);
+const gazprombankclearskies = const Color(0xFF508BE2);
+const gazprombankwintercloud = const Color(0xFFCEDFF4);
+
+//доп цвета серого
+const gazprombankgraymouse = const Color(0xFFB8BDCE);
+const gazprombanksilvermoon = const Color(0xFFD7DEE9);
+const gazprombankrainysky = const Color(0xFFE6EAF0);
+const gazprombankpolarstar = const Color(0xFFEEF1F3);
+
+//политра цветов государства
+const gazprombankgreen = const Color(0xFF65CC7B);
+const gazprombankmint = const Color(0xFFE1F5E5);
+const gazprombankasphaltorange = const Color(0xFFF5984E);
+const gazprombankred = const Color(0xFFC84F4F);
+
+
+
+
+
+
+
+
+
 //Основные цвета
 const mainappbarblue = const Color(0xFF8C9EFF);
 const maintextwhite = const Color(0xFFF5F5F5);
+
+
+
+
 
 
 //Светлая тема
@@ -52,11 +92,3 @@ const greytextbodydark = const Color(0xFFF5F5F5); // текст боди осн�
 //const bluebottondark = const Color(linear-gradient(108.97deg, #147DE1 -13.75%, #1B5E9E 102.11%)); // синие кнопки с градиентом
 //общее
 const redSelected = const Color(0xFFFF0000); // те
-
-
-
-
-
-
-
-

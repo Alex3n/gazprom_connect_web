@@ -9,11 +9,11 @@ class MyThemes {
 
   static final ThemeData lightThemeFcNnFonts = ThemeData(
 
-    primaryColor: mainappbarblue,
-    primaryColorDark: maingazpromsilver,
-    backgroundColor: maingazpromsilver,
-    accentColor:  maingazpromorange,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: gazprombankazure,
+    primaryColorDark: gazprombankgraymouse,
+    backgroundColor: gazprombanksilvermoon,
+    accentColor:  gazprombankasphaltorange,
+    scaffoldBackgroundColor: gazprombankwhite,
     dialogBackgroundColor: Colors.orange,
     brightness: Brightness.light,
     cardColor: boxlight,
@@ -22,20 +22,20 @@ class MyThemes {
     ),
     textTheme: TextTheme(
 
-      caption: TextStyle(color: redSelected, fontFamily: "DinPro",fontSize: 16 ),
-      bodyText1: TextStyle(color: maingazpromdarkblue,
+      caption: TextStyle(color: gazprombankred, fontFamily: "ProximaNovaBold",fontSize: 16 ),
+      bodyText1: TextStyle(color: gazprombankazure,
         fontSize: 13,
-        fontFamily: "DinPro",
+        fontFamily: "ProximaNovaBold",
       ),
       bodyText2:TextStyle(
-          color: maintextwhite,
+          color: gazprombankwhite,
           fontSize: 16,
-          fontFamily: "Helious",
+          fontFamily: "ProximaNovaBold",
           letterSpacing: 1.1),
 
       headline5: TextStyle(
-        fontSize: 16,
-        fontFamily: "HeliousBold",
+        fontSize: 14,
+        fontFamily: "ProximaNovaBold",
         color: Colors.white,
 
       ),
@@ -43,7 +43,7 @@ class MyThemes {
       headline6: TextStyle(
           color: maingazprom,
           fontSize: 16,
-          fontFamily: "HeliousBold",
+          fontFamily: "ProximaNovaBold",
           ),
 
       subtitle2: TextStyle(color: appbartexstlight, fontSize: 20),
@@ -51,22 +51,27 @@ class MyThemes {
       headline4: TextStyle(
           color: noactivsdrawericonlight,
           fontSize: 16,
-          fontFamily: "Helious",
+          fontFamily: "ProximaNovaBold",
           letterSpacing: 1.1),
 
 
 
       // боковое меню  Веделенное текст и цвет иконок
       headline3: TextStyle(
-          color: Color(0xff004077),
-          fontSize: 14,
-          fontFamily: "Helious",
-          letterSpacing: 1.1),
+          color: gazprombankazure,
+          fontSize: 18,
+          fontFamily: "ProximaNovaBold",
+          ),
       headline2: TextStyle(
-          color: maingazprom,
+          color: gazprombankclearskies,
           fontSize: 22,
-          fontFamily: "HeliousBold",
-          letterSpacing: 1.1),
+          fontFamily: "ProximaNovaBold",
+          ),
+      headline1: TextStyle(
+        color: gazprombankclearskies,
+        fontSize: 28,
+        fontFamily: "ProximaNovaBold",
+      ),
 
     ),
     primaryIconTheme: IconThemeData(color: appbartexstlight),
