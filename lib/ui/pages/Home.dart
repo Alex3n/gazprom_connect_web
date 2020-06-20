@@ -121,6 +121,10 @@ class _HomeState extends State<Home> {
 
     Widget buildMYColumn({DocumentSnapshot document}) {
       String imageUrl = document.data()['image'];
+      int likes = 0;
+      if  (document.data()['like'] != null) {
+        likes = document.data()['like'];
+      }
       return buildMyCardWithPaddingNotOnTap(Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -177,7 +181,7 @@ class _HomeState extends State<Home> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(2, 0, 8, 0),
                       child: new Text(
-                        document.data()['like'].toString(),
+                        likes.toString(),
                         style: new TextStyle(
                             fontSize: 14.0,
                             color: Color(0xFFFF0000),
@@ -189,6 +193,7 @@ class _HomeState extends State<Home> {
                       /*_likeHandleTap(document);*/
                     },
                   ),
+                  document.data()['date'] ==null ? Container () :
                   new Text(
                     formatDate(
                         DateTime.fromMillisecondsSinceEpoch(
@@ -212,6 +217,7 @@ class _HomeState extends State<Home> {
                           fontFamily: "Roboto"),
                     ),
                   ),
+                  document.data()['tags'] ==null ? Container () :
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                     child: new Text(
