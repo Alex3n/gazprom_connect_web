@@ -5,7 +5,7 @@ import 'package:gazpromconnectweb/themes/custom_theme.dart';
 import 'package:gazpromconnectweb/themes/themes.dart';
 import 'package:gazpromconnectweb/ui/pages/AdminPanel.dart';
 import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
-import 'package:gazpromconnectweb/ui/pages/BasicProgramming.dart';
+
 import 'package:gazpromconnectweb/ui/pages/EditProfilePage.dart';
 import 'package:gazpromconnectweb/ui/pages/Home.dart';
 import 'package:gazpromconnectweb/ui/pages/NewsPage.dart';
@@ -76,10 +76,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/':(BuildContext context) => Home(),
-        '/roomstudent':(BuildContext context) => RoomStudent(),
-        '/roomteacher':(BuildContext context) => RoomTeacher(),
-        '/basicprogramming':(BuildContext context) => BasicProgramming(),
-        '/teamteacher':(BuildContext context) => TeamTeacher(),
         '/mainscreen':(BuildContext context) => NewsPage(),
         '/dialoglogin':(BuildContext context) => DialogLogin(),
         '/registration':(BuildContext context) => Registration(),
