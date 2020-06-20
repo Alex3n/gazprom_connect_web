@@ -6,7 +6,6 @@ import 'package:firebase/src/firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import 'myDropdownButton.dart';
 
 AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
   return AppBar(
@@ -28,8 +27,20 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            flex: 2,
-            child: buildDropdownButton(context, valueSnapshot: valueSnapshot),
+            child: RaisedButton(
+              color: Colors.indigo,
+              hoverColor: Colors.indigo[400],
+              child: Text("Главная" ,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w300,
+                  )
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/mainscreen');
+              },
+            ),
           ),
           Expanded(
             child: RaisedButton(
