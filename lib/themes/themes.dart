@@ -16,7 +16,7 @@ class MyThemes {
     backgroundColor: gazprombanksilvermoon,
     accentColor:  gazprombankasphaltorange,
     scaffoldBackgroundColor: gazprombankwhite,
-    dialogBackgroundColor: Colors.orange,
+    dialogBackgroundColor: gazprombanviolet,
     brightness: Brightness.light,
     cardColor: boxlight,
     appBarTheme: AppBarTheme(
