@@ -5,6 +5,7 @@ import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/main.dart';
 import 'package:gazpromconnectweb/ui/AddCommentPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
+import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
@@ -215,21 +216,22 @@ class IdeasDetailState extends State<IdeasDetailPage> {
               ]),_commentList.isNotEmpty
               ? singleComment(context, _commentList.first, false)
               : Container(),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CommentWidget(
-                    document.id,
-                    commentsBlocked: widget.commentsBlocked,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CommentWidget(
+                      document.id,
+                      commentsBlocked: widget.commentsBlocked,
+                    ),
                   ),
-                ),
-              );
-            },
-            child: Text("Показать все комментарии (" +
-                _commentList.length.toString() +
-                ")"),
+                );
+              },
+              child: Text("Показать все комментарии",style: TextStyle(fontSize: 20),),
+            ),
           ),
           Container(width: 300,
             child: widget.commentsBlocked
@@ -246,7 +248,60 @@ class IdeasDetailState extends State<IdeasDetailPage> {
                     );
                   }),
             ),
+          ),
+          Container(
+            height: 300,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: store
+                  .collection("ideas")
+                  .doc(document.id)
+                  .collection("solutions")
+                  .onSnapshot,
+              builder:
+                  (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return new Text('Loading...');
+                  default:
+                    if (!snapshot.hasData) return Container();
+                    if (snapshot.data.docs.isEmpty) return Container();
+                    Map<String, bool> result = new Map();
+                    snapshot.data.docs.forEach((doc) =>
+                        result.putIfAbsent(doc.id,
+                                () {
+                              if (doc.data()['like'] == null) {
+                                return false;
+                              }
+                              else
+                                return
+                                  List.from(doc.data()['like']).contains(
+                                      getUserId());
+                            }
+                          //     () => debugPrint("likesResultForEach:" + List.from(doc['like']).toString() +" " + _user.uid) as bool
+                        ));
+
+                    return new ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return GestureDetector(
+                            child: buildSolutions(result,
+                              document: snapshot.data.docs.elementAt(index),),
+                            onTap: () {
+
+                            },
+                          );
+                        });
+                }
+              },
+            )
+            ,
           )
+
         ]);
   }
 
@@ -274,5 +329,104 @@ class IdeasDetailState extends State<IdeasDetailPage> {
     });
     return commModelList;
   }
+
+  Widget buildSolutions(Map<String, bool>
+  result, {DocumentSnapshot document}) {
+    Map<String, List<CommentModel>> _commModelMap = new Map();
+    String imageUrl = document.data()['image'];
+    List <String> listlikes = [];
+    if (document.data()['like'] != null) {
+      listlikes = document.data()['like'];
+    }
+    return buildMyCardWithPaddingNotOnTap(Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+                height: (imageUrl == null || imageUrl.isEmpty) ? 1.0 : 100,
+                child: (imageUrl == null || imageUrl.isEmpty)
+                    ? Container()
+                    : MyImageWidget(url: imageUrl)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Text(
+              document.data()['description'].toString(),
+              style: new TextStyle(
+                  fontSize: 20.0,
+                  color: const Color(0xFF000000),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto"),
+            ),
+          ),
+          new Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new GestureDetector(
+                  child: new Icon(Icons.favorite,
+                      color: result[document.id]
+                          ? Color(0xFFFF0000)
+                          : Theme
+                          .of(context)
+                          .tabBarTheme
+                          .unselectedLabelColor,
+                      size: 24.0),
+                  onTap: () {
+                    _likeHandleTap(document, result);
+                  },
+                ),
+                new GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: new Text(
+                      listlikes.length.toString(),
+                      style: new TextStyle(
+                          fontSize: 14.0,
+                          color: result[document.id]
+                              ? Color(0xFFFF0000)
+                              : Theme
+                              .of(context)
+                              .tabBarTheme
+                              .unselectedLabelColor,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "Roboto"),
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ]),
+        ]));
+  }
+
+  void _likeHandleTap(DocumentSnapshot document,
+      Map<String, bool> result) async {
+    setState(() {
+      if (result[document.id]) {
+        // уже сделал лайк
+        result[document.id] = false;
+        store.collection("news").doc(document.id).update(
+            data: Map.from({
+              "like": FieldValue.arrayRemove(List.unmodifiable([getUserId()]))
+            }));
+        _color = Color(0xFF000000);
+        document.data()['like'] = document.data()['like'] - 1;
+      } else {
+        //не делал лайк
+        result[document.id] = true;
+        store.collection("news").doc(document.id).update(
+            data: Map.from({
+              "like": FieldValue.arrayUnion(List.unmodifiable([getUserId()]))
+            }));
+        _color = Color(0xFFFF0000);
+        document.data()['like'] = document.data()['like'] + 1;
+      }
+    });
+  }
+
 
 }
