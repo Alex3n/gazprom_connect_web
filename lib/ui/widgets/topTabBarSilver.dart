@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 class MainCollapsingToolbar extends StatefulWidget {
@@ -37,12 +38,16 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                 expandedHeight: widget.expandleHeight,
                 floating: false,
                 pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                    collapseMode: CollapseMode.parallax,
-                    centerTitle: widget.centerTitile,
-                    title: Text(widget.titleMain ,
-                        style: Theme.of(context).textTheme.title),
-                    background: widget.imageHeader),
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure])                  ),
+                  child: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.parallax,
+                      centerTitle: widget.centerTitile,
+                      title: Text(widget.titleMain ,
+                          style: Theme.of(context).textTheme.title),
+                      background: widget.imageHeader),
+                ),
               ),
               SliverPersistentHeader(
                 delegate: widget.pages.length > 1 ? _SliverAppBarDelegate(
