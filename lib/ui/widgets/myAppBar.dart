@@ -1,21 +1,24 @@
 import 'dart:ui';
 
+import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
 import 'package:firebase/src/firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
-import 'myDropdownButton.dart';
 
 AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
   return AppBar(
-    backgroundColor: Color(0xFF8C9EFF),
+
     actions: <Widget>[
       FlatButton(onPressed: () {
         Navigator.of(context).pushNamed("/profile");
       },
         child: Icon(Icons.account_circle),)
-    ],
+    ],flexibleSpace: Container(
+    decoration: BoxDecoration(
+        gradient: LinearGradient (begin: Alignment.bottomLeft,end: Alignment.topRight,colors: <Color>[ gazprombanviolet,gazprombankazure])    ),
+  ),
     title: Container(
       height: 30,
       child: Row(

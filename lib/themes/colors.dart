@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 //газпром
 const maingazprom = const Color(0xFF0070BA);
@@ -93,11 +92,3 @@ const greytextbodydark = const Color(0xFFF5F5F5); // текст боди осн�
 //const bluebottondark = const Color(linear-gradient(108.97deg, #147DE1 -13.75%, #1B5E9E 102.11%)); // синие кнопки с градиентом
 //общее
 const redSelected = const Color(0xFFFF0000); // те
-
-
-
-
-
-
-
-
