@@ -27,14 +27,13 @@ class _ProfilePageState extends State<ProfilePage> {
   DocumentSnapshot dsuser;
 
   void getCurrentUser() async {
-    User _user = _firebaseAuth.currentUser;
+
      store
         .collection("users")
-        .doc(_user.uid)
+        .doc(getUserId())
         .onSnapshot
         .listen((data) {
       setState(() {
-        user = _user;
         dsuser = data;
       });
     });
@@ -52,10 +51,13 @@ class _ProfilePageState extends State<ProfilePage> {
     if (dsuser != null) {
       map = dsuser.data();
       if (map == null) {
-        map = {'name': "не указано", 'email': 'не указано', 'phone': 'не указано', 'bornDate': 'не указано'};
+        map = {'name': "не указано", 'email': 'не указано', 'phone': 'не указано', 'bornDate': 'не указано', "department": 'не указано',"position": 'не указано'};
       }
     } else {
-      map = {'name': "не указано", 'email': 'не указано', 'Roboto': 'не указано', 'bornDate': 'не указано'};
+      map = {'name': "не указано", 'email': 'не указано', 'Roboto': 'не указано', 'bornDate': 'не указано', "department": 'не указано',"position": 'не указано',
+        "problemsEnteret": 'не указано',"problemslikes": 'не указано',"solutionsTrue": 'не указано',"solutions": 'не указано',"solutionsLikes": 'не указано',"statusText": 'не указано',"reiting": 'не указано',
+
+      };
     }
     return ListView(children: <Widget>[
       buildMyCardWithPadding(
@@ -65,7 +67,16 @@ class _ProfilePageState extends State<ProfilePage> {
             profileName: map['name'] != null ? map['name'] : "не указано",
             profilePhone: map['phone']!= null ? map['phone'] : "не указано",
             profileBornDate: map['bornDate']!= null ? map['bornDate'] : "не указано",
-            profileMail: map['email']!= null ? map['email'] : "не указано",)
+            profileMail: map['email']!= null ? map['email'] : "не указано",
+            profileDepatment: map['department']!= null ? map['department'] : "не указано",
+            problemsEnteret: map['problemsEnteret']!= null ? map['problemsEnteret'] : "не указано",
+            problemslikes: map['problemslikes']!= null ? map['problemslikes'] : "не указано",
+            solutionsTrue: map['solutionsTrue']!= null ? map['solutionsTrue'] : "не указано",
+            solutions: map['solutions']!= null ? map['solutions'] : "не указано",
+            solutionsLikes: map['solutionsLikes']!= null ? map['solutionsLikes'] : "не указано",
+            statusText: map['statusText']!= null ? map['statusText'] : "не указано",
+            reiting: map['reiting']!= null ? map['reiting'] : "не указано",
+            profilePosition: map['position']!= null ? map['position'] : "не указано",)
       ),
     ]);
   }
