@@ -43,7 +43,7 @@ class _AdminDepartmentPageState extends State<AdminDepartmentPage> {
         StreamBuilder<QuerySnapshot>(
           stream: store
               .collection("departments")
-              .orderBy("date", "desc")
+              .orderBy("title")
               .onSnapshot,
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
