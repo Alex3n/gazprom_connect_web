@@ -8,6 +8,8 @@ import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 
+/// Данный класс отвечает за отображение страницы добавления идеи
+
 class IdeaPage extends StatefulWidget {
   @override
   _IdeaPageState createState() => _IdeaPageState();
@@ -35,6 +37,8 @@ class _IdeaPageState extends State<IdeaPage> {
     });
   }
 
+  /// В данном методе описывается логика сохранения предложенной идеи(проблема,
+  /// описание, отделы, решения)
 
   @override
   Widget build(BuildContext context) {

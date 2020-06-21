@@ -3,21 +3,19 @@ import 'dart:async';
 import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/main.dart';
-import 'package:gazpromconnectweb/ui/AddCommentPage.dart';
+import 'package:gazpromconnectweb/ui/pages/AddCommentPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
-import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/topTabBarSilver.dart';
-import 'package:firebase/firebase.dart';
 import 'package:firebase/firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 
+/// Данный класс отвечает за отображения выбранной идеи с возможностью комментирования
+
 class IdeasDetailPage extends StatefulWidget {
-DocumentSnapshot document;
-bool commentsBlocked=false;
+  DocumentSnapshot document;
+  bool commentsBlocked = false;
 
   @override
   State<StatefulWidget> createState() {
@@ -29,8 +27,6 @@ bool commentsBlocked=false;
 }
 
 class IdeasDetailState extends State<IdeasDetailPage> {
-
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   DocumentSnapshot document;
   bool _liked;
@@ -46,12 +42,10 @@ class IdeasDetailState extends State<IdeasDetailPage> {
   void initState() {
     _getIdeas(document.id);
     super.initState();
-
   }
 
   void _getCurrentUser() async {
     setState(() {
-
       _userId = getUserId();
     });
   }
@@ -69,7 +63,8 @@ class IdeasDetailState extends State<IdeasDetailPage> {
               "like": FieldValue.arrayRemove(List.unmodifiable([_userId]))
             }));
         _color = Color(0xFF000000);
-        document.data()['like'] = (int.parse(document.data()['like']) - 1).toString();
+        document.data()['like'] =
+            (int.parse(document.data()['like']) - 1).toString();
       } else {
         //не делал лайк
         _result = true;
@@ -78,7 +73,8 @@ class IdeasDetailState extends State<IdeasDetailPage> {
               "like": FieldValue.arrayUnion(List.unmodifiable([_userId]))
             }));
         _color = Color(0xFFFF0000);
-        document.data()['like'] = (int.parse(document.data()['like']) + 1).toString();
+        document.data()['like'] =
+            (int.parse(document.data()['like']) + 1).toString();
       }
     });
   }
@@ -96,15 +92,18 @@ class IdeasDetailState extends State<IdeasDetailPage> {
     return Scaffold(
       body: MainCollapsingToolbar(
         pages: <Widget>[
-          buildDateAndLikes(document.id, document.data()['title'].toString(), document.data()['description'].toString(), document.data()['date'].toString(), document.data()['like'].toString())
+          buildDateAndLikes(
+              document.id,
+              document.data()['title'].toString(),
+              document.data()['description'].toString(),
+              document.data()['date'].toString(),
+              document.data()['like'].toString())
         ],
-        titleMain:  '',
+        titleMain: '',
         headers: [""],
-        imageHeader:
-        MyImageWidget(url: document.data()['image']),
+        imageHeader: MyImageWidget(url: document.data()['image']),
         expandleHeight: 500,
       ),
-
     );
   }
 
@@ -143,8 +142,7 @@ class IdeasDetailState extends State<IdeasDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new GestureDetector(
-                  child: new Icon(Icons.favorite,
-                      color: _color, size: 34.0),
+                  child: new Icon(Icons.favorite, color: _color, size: 34.0),
                   onTap: () {
                     _handleTap(documentID);
                   },
@@ -163,45 +161,43 @@ class IdeasDetailState extends State<IdeasDetailPage> {
                 widget.commentsBlocked
                     ? Container()
                     : GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        10.0, 10.0, 4.0, 10.0),
-                    child: new Icon(Icons.insert_comment,
-                        color: Theme.of(context)
-                            .tabBarTheme
-                            .unselectedLabelColor,
-                        size: 28.0),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddCommentPage(document.id),
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(10.0, 10.0, 4.0, 10.0),
+                          child: new Icon(Icons.insert_comment,
+                              color: Theme.of(context)
+                                  .tabBarTheme
+                                  .unselectedLabelColor,
+                              size: 28.0),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddCommentPage(document.id),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
                 widget.commentsBlocked
                     ? Container()
                     : GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: new Text(
-                      _commentList.length.toString(),
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddCommentPage(document.id),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: new Text(
+                            _commentList.length.toString(),
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddCommentPage(document.id),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
                 new Text(
                   formatDate(
                       DateTime.fromMillisecondsSinceEpoch(int.parse(date)),
@@ -212,7 +208,8 @@ class IdeasDetailState extends State<IdeasDetailPage> {
                       fontWeight: FontWeight.w400,
                       fontFamily: "Roboto"),
                 )
-              ]),_commentList.isNotEmpty
+              ]),
+          _commentList.isNotEmpty
               ? singleComment(context, _commentList.first, false)
               : Container(),
           GestureDetector(
@@ -231,21 +228,22 @@ class IdeasDetailState extends State<IdeasDetailPage> {
                 _commentList.length.toString() +
                 ")"),
           ),
-          Container(width: 300,
+          Container(
+            width: 300,
             child: widget.commentsBlocked
                 ? Container()
                 : Padding(
-              padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
-              child: myGradientButton(context,
-                  btnText: "Оставить комментарий", funk: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddCommentPage(document.id),
-                      ),
-                    );
-                  }),
-            ),
+                    padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+                    child: myGradientButton(context,
+                        btnText: "Оставить комментарий", funk: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddCommentPage(document.id),
+                        ),
+                      );
+                    }),
+                  ),
           )
         ]);
   }
@@ -259,6 +257,7 @@ class IdeasDetailState extends State<IdeasDetailPage> {
       return false;
     }
   }
+
   Future<List<CommentModel>> _getIdeas(String newsId) async {
     List<CommentModel> commModelList = new List();
     await store
@@ -267,12 +266,11 @@ class IdeasDetailState extends State<IdeasDetailPage> {
         .collection("solutions")
         .onSnapshot
         .listen((snapshot) => snapshot.docs
-        .forEach((i) => commModelList.add(CommentModel.fromMap(i.data()))));
+            .forEach((i) => commModelList.add(CommentModel.fromMap(i.data()))));
     debugPrint("comms:" + commModelList.toString());
     setState(() {
       _commentList = commModelList;
     });
     return commModelList;
   }
-
 }

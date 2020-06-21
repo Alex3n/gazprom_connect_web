@@ -11,6 +11,8 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 import '../../main.dart';
 import 'AdminPanel.dart';
 
+/// Данный класс отвечает за отображение страниц редактора идей в админ панеле
+
 class AdminIdeasPage extends StatefulWidget {
   @override
   _AdminIdeasPageState createState() => _AdminIdeasPageState();
@@ -84,7 +86,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
   Widget buildMYColumn({DocumentSnapshot document}) {
     String imageUrl = document.data()['image'];
     int likes = 0;
-    if  (document.data()['like'] != null) {
+    if (document.data()['like'] != null) {
       likes = document.data()['like'];
     }
     return buildMyCardWithPaddingNotOnTap(Column(
@@ -166,18 +168,19 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                     /*_likeHandleTap(document);*/
                   },
                 ),
-                document.data()['date'] ==null ? Container () :
-                new Text(
-                  formatDate(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          int.parse(document.data()['date'])),
-                      [dd, '.', mm, '.', yyyy]),
-                  style: new TextStyle(
-                      fontSize: 14.0,
-                      color: const Color(0xFF000000),
-                      fontWeight: FontWeight.w300,
-                      fontFamily: "Roboto"),
-                ),
+                document.data()['date'] == null
+                    ? Container()
+                    : new Text(
+                        formatDate(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                int.parse(document.data()['date'])),
+                            [dd, '.', mm, '.', yyyy]),
+                        style: new TextStyle(
+                            fontSize: 14.0,
+                            color: const Color(0xFF000000),
+                            fontWeight: FontWeight.w300,
+                            fontFamily: "Roboto"),
+                      ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                   child: new Text(
@@ -190,18 +193,19 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
                         fontFamily: "Roboto"),
                   ),
                 ),
-                document.data()['tags'] ==null ? Container () :
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                  child: new Text(
-                    document.data()['tags'].toString(),
-                    style: new TextStyle(
-                        fontSize: 14.0,
-                        color: Color(0xFFFF0000),
-                        fontWeight: FontWeight.w300,
-                        fontFamily: "Roboto"),
-                  ),
-                ),
+                document.data()['tags'] == null
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                        child: new Text(
+                          document.data()['tags'].toString(),
+                          style: new TextStyle(
+                              fontSize: 14.0,
+                              color: Color(0xFFFF0000),
+                              fontWeight: FontWeight.w300,
+                              fontFamily: "Roboto"),
+                        ),
+                      ),
               ]),
         ]));
   }
@@ -243,7 +247,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
     final controllerPhotoUrl = TextEditingController();
     final controllerTags = TextEditingController();
     final controllerSolution = TextEditingController();
-    List <Map<String, dynamic>> listDeps = [];
+    List<Map<String, dynamic>> listDeps = [];
 
     if (data == null) {
       data = Map();
@@ -265,7 +269,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'image': controllerPhotoUrl.text,
           'tags': controllerTags.text,
           'solution': controllerSolution.text,
-          'departments' : listDeps
+          'departments': listDeps
         };
 
         addNewDoc(context, "ideas", newProduct, whenDone: () {
@@ -284,7 +288,7 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           'image': controllerPhotoUrl.text,
           'tags': controllerTags.text,
           'solution': controllerSolution.text,
-          'departments' : listDeps
+          'departments': listDeps
         };
 
         updateDoc(context, newProduct, collection: "ideas", doc: id,
@@ -305,11 +309,13 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
         });
       }
     }
-    void chooseDep(Map <String, dynamic> data) {
+
+    void chooseDep(Map<String, dynamic> data) {
       setState(() {
         listDeps.add(data);
       });
     }
+
     String getDepsNames() {
       String names = "";
       listDeps.forEach((element) {
@@ -335,77 +341,75 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text('актуально для: ' + (listDeps.isEmpty
-                  ? "всех сотрудников"
-                  : getDepsNames())),
-              myGradientButton(context,
+              Text('актуально для: ' +
+                  (listDeps.isEmpty ? "всех сотрудников" : getDepsNames())),
+              myGradientButton(
+                context,
                 funk: () {
                   showDialog(
                       context: context,
-                      builder: (_) =>
-                      new Dialog(
-                        child: Container(
-                          width: 800,
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Выберите отдел'),
+                      builder: (_) => new Dialog(
+                            child: Container(
+                              width: 800,
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('Выберите отдел'),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: StreamBuilder(
+                                        stream: store
+                                            .collection("departments")
+                                            .onSnapshot,
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<dynamic> snapshot) {
+                                          if (snapshot.hasError)
+                                            return new Text(
+                                                'Error: ${snapshot.error}');
+                                          switch (snapshot.connectionState) {
+                                            case ConnectionState.waiting:
+                                              return new Text('Загрузка...');
+                                            default:
+                                              return new ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  itemCount:
+                                                      snapshot.data.docs.length,
+                                                  itemBuilder:
+                                                      (BuildContext ctx,
+                                                          int index) {
+                                                    return GestureDetector(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        child: Text(
+                                                          snapshot.data.docs
+                                                              .elementAt(index)
+                                                              .data()['title']
+                                                              .toString(),
+                                                        ),
+                                                      ),
+                                                      onTap: () {
+                                                        chooseDep(snapshot
+                                                            .data.docs
+                                                            .elementAt(index)
+                                                            .data());
+                                                        Navigator.pop(context);
+                                                      },
+                                                    );
+                                                  });
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                child: Container(child: StreamBuilder(
-                                  stream: store
-                                      .collection("departments")
-                                      .onSnapshot,
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<
-                                          dynamic> snapshot) {
-                                    if (snapshot.hasError)
-                                      return new Text(
-                                          'Error: ${snapshot.error}');
-                                    switch (snapshot
-                                        .connectionState) {
-                                      case ConnectionState.waiting:
-                                        return new Text(
-                                            'Загрузка...');
-                                      default:
-                                        return new ListView.builder(
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount: snapshot.data
-                                                .docs.length,
-                                            itemBuilder: (
-                                                BuildContext ctx,
-                                                int index) {
-                                              return GestureDetector(
-                                                child: Padding(
-                                                  padding: EdgeInsets
-                                                      .all(10),
-                                                  child: Text(
-                                                    snapshot.data.docs
-                                                        .elementAt(
-                                                        index)
-                                                        .data()['title']
-                                                        .toString(),),),
-                                                onTap: () {
-                                                  chooseDep(
-                                                      snapshot.data
-                                                          .docs
-                                                          .elementAt(
-                                                          index)
-                                                          .data());
-                                                  Navigator.pop(context);
-                                                },
-                                              );
-                                            }
-                                        );
-                                    }
-                                  },),),
-                              )
-                            ],
-                          ),
-                        ),
-                      ));
+                            ),
+                          ));
                 },
                 btnText: 'Выбрать отдел',
               ),
@@ -441,12 +445,13 @@ class _AdminIdeasPageState extends State<AdminIdeasPage> {
     );
   }
 }
-String getDepsNames(List <dynamic> listDep) {
+
+String getDepsNames(List<dynamic> listDep) {
   String names = "";
-  if (listDep !=null)
-  listDep.forEach((element) {
-    names = names + element['title'] + " ";
-  });
-  if (names == "") names= "все";
+  if (listDep != null)
+    listDep.forEach((element) {
+      names = names + element['title'] + " ";
+    });
+  if (names == "") names = "все";
   return names;
 }

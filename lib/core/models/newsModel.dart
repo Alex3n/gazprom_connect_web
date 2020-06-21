@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class News {
   String id;
   String title;

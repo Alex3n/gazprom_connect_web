@@ -1,8 +1,8 @@
-
-
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+/// Форма для регистрации пользователя
 
 class Registration extends StatelessWidget{
   TextEditingController controllerName2 = TextEditingController();

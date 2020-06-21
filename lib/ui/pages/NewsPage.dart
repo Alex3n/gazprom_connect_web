@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/main.dart';
-import 'package:gazpromconnectweb/ui/AddCommentPage.dart';
+import 'package:gazpromconnectweb/ui/pages/AddCommentPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyCard.dart';
 import 'package:firebase/firebase.dart';
@@ -14,13 +14,12 @@ import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_core_web/firebase_core_web.dart';
 
 import 'NewsDetailPage.dart';
+
+/// Данный класс отвечает за отображение страницы новостей
 
 class NewsPage extends StatefulWidget {
   NewsPage({Key key}) : super(key: key);
@@ -346,6 +345,7 @@ class _NewsPageState extends State<NewsPage> {
           ),
         ]));
   }
+
   void _getComments() async {
     Map<String, List<CommentModel>> commModelMap = new Map();
     List<String> docsId = new List();

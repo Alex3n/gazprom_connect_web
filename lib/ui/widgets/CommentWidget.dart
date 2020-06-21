@@ -10,7 +10,7 @@ import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/ui/pages/NewsPage.dart';
 
 import '../../main.dart';
-import '../AddCommentPage.dart';
+import '../pages/AddCommentPage.dart';
 import 'RaisedGradientButton.dart';
 
 class CommentWidget extends StatefulWidget {

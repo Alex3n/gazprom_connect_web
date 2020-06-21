@@ -1,4 +1,3 @@
-import 'package:date_format/date_format.dart';
 import 'package:firebase/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -9,6 +8,8 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 
 import '../../main.dart';
 import 'AdminPanel.dart';
+
+/// Данный класс отвечает за отображение страниц редактора сотрудников в админ панеле
 
 class AdminEmployeesPage extends StatefulWidget {
   @override

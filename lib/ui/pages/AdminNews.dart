@@ -10,6 +10,8 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 import '../../main.dart';
 import 'AdminPanel.dart';
 
+/// Данный класс отвечает за отображение страниц редактора новостей в админ панеле
+
 class AdminNewsPage extends StatefulWidget {
   @override
   _AdminNewsPageState createState() => _AdminNewsPageState();
@@ -106,12 +108,9 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
                   padding: const EdgeInsets.fromLTRB(4, 0, 0, 5),
                   child: new GestureDetector(
                     child: new Icon(Icons.star,
-//                          custicon.MyFlutterApp.news,
                         color: Color(0xFFFF0000),
                         size: 22.0),
-                    onTap: () {
-                      /*_likeHandleTap(document);*/
-                    },
+                    onTap: () {},
                   ),
                 ),
                 new GestureDetector(
@@ -126,9 +125,7 @@ class _AdminNewsPageState extends State<AdminNewsPage> {
                           fontFamily: "Roboto"),
                     ),
                   ),
-                  onTap: () {
-                    /*_likeHandleTap(document);*/
-                  },
+                  onTap: () {},
                 ),
                 new Text(
                   formatDate(
