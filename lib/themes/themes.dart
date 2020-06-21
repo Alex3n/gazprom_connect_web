@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -7,7 +5,6 @@ import 'colors.dart';
 enum MyThemeKeys {LIGHTFC, DARKFC}
 
 class MyThemes {
-
 
   static final ThemeData lightThemeFcNnFonts = ThemeData(
 
@@ -23,7 +20,6 @@ class MyThemes {
       color: Colors.white,
     ),
     textTheme: TextTheme(
-
 
 //     Используется для вспомогательного текста, связанного с изображениями.
       caption: TextStyle(color: gazprombankred, fontFamily: "ProximaNovaBold",fontSize: 16 ),
@@ -101,11 +97,6 @@ class MyThemes {
         labelColor: activbottombariconlight,
         unselectedLabelColor: noactivbottombariconlight),
   );
-
-
-
-
-
 
   static final ThemeData darkThemeFcNnFonts = ThemeData(
     primaryColor: mainbackgrounddark,

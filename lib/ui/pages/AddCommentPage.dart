@@ -8,9 +8,7 @@ import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
 import 'package:gazpromconnectweb/ui/widgets/TextFieldPadding.dart';
 
-
-
-//import 'package:sticky_headers/sticky_headers.dart';
+/// Данный класс отвечает за отображение страницы добавления комментария
 
 class AddCommentPage extends StatefulWidget {
   String newsId;
@@ -34,18 +32,14 @@ class _AddCommentPageState extends State<AddCommentPage> {
   Map dBuser;
   String photoURL;
 
-
   bool isNameValid = false;
   bool isEmailValid = false;
-
 
   @override
   void initState() {
     getUser();
     super.initState();
   }
-
-
 
   Widget commentColumn(BuildContext context) {
     return Column(
@@ -96,11 +90,7 @@ class _AddCommentPageState extends State<AddCommentPage> {
     );
   }
 
-
   void addComment(String comment, String newsId) async {
-
-
-
     String avatar =userDataBase["photoURL"] != null ? userDataBase["photoURL"] : "";
     String name = userDataBase["name"] != null ? userDataBase["name"] : "";
     String id = getUserId();

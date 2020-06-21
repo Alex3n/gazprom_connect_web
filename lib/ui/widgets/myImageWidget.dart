@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart' as fb;
 
@@ -22,7 +21,6 @@ class _MyImageWidgetState extends State<MyImageWidget> {
               })
           );
         }
-
     super.initState();
   }
 

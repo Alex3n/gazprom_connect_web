@@ -30,6 +30,8 @@ enum AdminContent {
   editProject,
 }
 
+/// Данный класс отвечает за навигацию в админ панеле
+
 class AdminPanel extends StatefulWidget {
   @override
   _AdminPanelState createState() => _AdminPanelState();

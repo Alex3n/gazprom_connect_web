@@ -1,7 +1,5 @@
-import 'package:date_format/date_format.dart';
 import 'package:firebase/firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:gazpromconnectweb/func/mydb.dart';
 import 'package:gazpromconnectweb/themes/colors.dart';
 import 'package:gazpromconnectweb/ui/widgets/MyTexts.dart';
@@ -11,24 +9,17 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 import '../../main.dart';
 import 'AdminPanel.dart';
 
+/// Данный класс отвечает за отображение страниц редактора проектов в админ панеле
+
 class AdminProjectsPage extends StatefulWidget {
   @override
   _AdminProjectsPageState createState() => _AdminProjectsPageState();
 }
 
 class _AdminProjectsPageState extends State<AdminProjectsPage> {
-//  List<dynamic> ideas;
-//
-//  @override
-//  void initState() {
-//    store.collection("ideas").onSnapshot.listen((event) {
-//      event.docs.forEach((element) {
-//        ideas.add(element.data()['title']);
-//        print(element.data()['title']);
-//      });
-//    });
-//    super.initState();
-//  }
+
+  var solutions;
+  String solution;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +78,6 @@ class _AdminProjectsPageState extends State<AdminProjectsPage> {
     );
   }
 
-  var solutions;
-  int solutionPos;
-  String solution;
 
   Widget buildMYColumn({DocumentSnapshot document}) {
     String imageUrl = document.data()['image'];
@@ -267,7 +255,6 @@ class _AdminProjectsPageState extends State<AdminProjectsPage> {
         buildTextForm(controllerDescription,
             hint: 'описание', label: 'описание'),
         _dropDownButton(),
-//        buildTextForm(controllerEmployees, hint: 'сотрудники', label: 'сотрудники'),
         buildTextForm(controllerPhotoUrl,
             hint: 'ссылка на фото', label: 'ссылка на фото'),
         new FlatButton(
@@ -327,6 +314,8 @@ class _AdminProjectsPageState extends State<AdminProjectsPage> {
           },
         ));
   }
+
+  /// В данном методе осуществляется выбор идеи и варианта решения проблемы для нового проекта
 
   Widget buildAddProject() {
     return ListView(

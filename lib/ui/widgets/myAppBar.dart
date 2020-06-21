@@ -1,11 +1,6 @@
-import 'dart:ui';
-
 import 'package:gazpromconnectweb/themes/colors.dart';
-import 'package:gazpromconnectweb/ui/pages/Autorization.dart';
 import 'package:firebase/src/firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../main.dart';
 
 AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
   return AppBar(
@@ -33,22 +28,6 @@ AppBar buildAppBar(BuildContext context, {DocumentSnapshot valueSnapshot}) {
               },
             ),
           ),
-//          Expanded(
-//            child: RaisedButton(
-//              color: Colors.indigo,
-//              hoverColor: Colors.indigo[400],
-//              child: Text("Команда" ,
-//                  style: TextStyle(
-//                    color: Colors.white,
-//                    fontSize: 22,
-//                    fontWeight: FontWeight.w300,
-//                  )
-//              ),
-//              onPressed: () {
-//                Navigator.of(context).pushNamed('/');
-//              },
-//            ),
-//          ),
           Expanded(
             child: RaisedButton(
               color: gazprombankwhite,

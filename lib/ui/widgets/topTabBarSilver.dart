@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gazpromconnectweb/themes/colors.dart';
-import 'package:provider/provider.dart';
 
 class MainCollapsingToolbar extends StatefulWidget {
   List <String> headers = ["1", "2,", "3"];

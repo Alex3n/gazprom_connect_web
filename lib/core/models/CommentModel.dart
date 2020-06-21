@@ -12,8 +12,6 @@ class CommentModel {
   List<Map> subcomments = new List();
   List<String> likesArr = new List();
 
-
-
   CommentModel.fromMap(Map snapshot)
       :
         comment = snapshot['comment'] ?? '',
@@ -33,9 +31,6 @@ class CommentModel {
     return likesList;
   }
 
-
-
-
   toJson() {
     return {
       "comment": comment,
@@ -52,6 +47,5 @@ class CommentModel {
   String toString() {
     return 'CommentModel{comment: $comment, author: $author, date: $date, avatar: $avatar, subcommentsWidgets: $subcommentsWidgets}';
   }
-
 
 }

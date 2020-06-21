@@ -3,17 +3,16 @@ import 'dart:async';
 import 'package:date_format/date_format.dart';
 import 'package:gazpromconnectweb/core/models/CommentModel.dart';
 import 'package:gazpromconnectweb/main.dart';
-import 'package:gazpromconnectweb/ui/AddCommentPage.dart';
+import 'package:gazpromconnectweb/ui/pages/AddCommentPage.dart';
 import 'package:gazpromconnectweb/ui/widgets/CommentWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/RaisedGradientButton.dart';
-import 'package:gazpromconnectweb/ui/widgets/myAppBar.dart';
 import 'package:gazpromconnectweb/ui/widgets/myImageWidget.dart';
 import 'package:gazpromconnectweb/ui/widgets/topTabBarSilver.dart';
-import 'package:firebase/firebase.dart';
 import 'package:firebase/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
+
+/// Данный класс отвечает за отображения выбранной новости с возможностью комментирования
 
 class NewsDetailPage extends StatefulWidget {
   String _title;

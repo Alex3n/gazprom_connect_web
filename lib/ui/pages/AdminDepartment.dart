@@ -9,6 +9,8 @@ import 'package:gazpromconnectweb/ui/widgets/storageUploadImageWidget.dart';
 import '../../main.dart';
 import 'AdminPanel.dart';
 
+/// Данный класс отвечает за отображение страниц редактора отделов в админ панеле
+
 class AdminDepartmentPage extends StatefulWidget {
   @override
   _AdminDepartmentPageState createState() => _AdminDepartmentPageState();

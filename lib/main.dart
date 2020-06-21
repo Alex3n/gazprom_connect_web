@@ -20,57 +20,57 @@ bool blIsSignedIn = false;
 Firestore store = firestore();
 bool isDarkTheme = false;
 
-
-
 SharedPreferences prefs;
-Map <String, dynamic> curUser;
-Map <String, dynamic> userData;
-Map <String, dynamic> userDataBase;
+Map<String, dynamic> curUser;
+Map<String, dynamic> userData;
+Map<String, dynamic> userDataBase;
 User userFB;
 
 bool isReleaseVersion = false; //ПОСТАВИТЬ true перед деплоем, проверять всегда
 String debagUserID = "hv8o4UwxcNcXQ27uASx5NErrBqv1";
-String getUserId () {
-  return isReleaseVersion? userFB.uid: debagUserID;
+
+String getUserId() {
+  return isReleaseVersion ? userFB.uid : debagUserID;
 }
 
-getUser () {
-   store.collection("users").doc(getUserId()).get().then((value) => userDataBase = value.data());
-
+getUser() {
+  store
+      .collection("users")
+      .doc(getUserId())
+      .get()
+      .then((value) => userDataBase = value.data());
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferences.getInstance().then((value) {
     prefs = value;
-    if (prefs != null && prefs.get("isDarkTeme")!= null) {
+    if (prefs != null && prefs.get("isDarkTeme") != null) {
       isDarkTheme = prefs.get("isDarkTeme");
     }
-    if  (prefs != null && prefs.get("userDataList")!= null)
-    {
-      List <dynamic> userDataList = prefs.get("userDataList");
+    if (prefs != null && prefs.get("userDataList") != null) {
+      List<dynamic> userDataList = prefs.get("userDataList");
       curUser = {
         "id": userDataList[0],
-        "api_token":     userDataList[1],
-        "name" : userDataList[2],
-        "phoneNumber" : userDataList[3],
-        "role" : userDataList[4],
+        "api_token": userDataList[1],
+        "name": userDataList[2],
+        "phoneNumber": userDataList[3],
+        "role": userDataList[4],
       };
       userData = curUser;
-    } else {
-    }
+    } else {}
     getUser();
   });
 
-  isDarkTheme = isDarkTheme == null? false : isDarkTheme;
+  isDarkTheme = isDarkTheme == null ? false : isDarkTheme;
   initializeDateFormatting().then((_) => runApp(
-    CustomTheme(
-      initialThemeKey: isDarkTheme? MyThemeKeys.DARKFC : MyThemeKeys.LIGHTFC,
-      child: MyApp(),
-    ),
-  ));
+        CustomTheme(
+          initialThemeKey:
+              isDarkTheme ? MyThemeKeys.DARKFC : MyThemeKeys.LIGHTFC,
+          child: MyApp(),
+        ),
+      ));
 }
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -78,14 +78,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/':(BuildContext context) => Home(),
-        '/mainscreen':(BuildContext context) => NewsPage(),
-        '/dialoglogin':(BuildContext context) => DialogLogin(),
-        '/registration':(BuildContext context) => Registration(),
-        '/profile':(BuildContext context) => ProfilePage(),
-        '/editprofile':(BuildContext context) => EditProfilePage(),
+        '/': (BuildContext context) => Home(),
+        '/mainscreen': (BuildContext context) => NewsPage(),
+        '/dialoglogin': (BuildContext context) => DialogLogin(),
+        '/registration': (BuildContext context) => Registration(),
+        '/profile': (BuildContext context) => ProfilePage(),
+        '/editprofile': (BuildContext context) => EditProfilePage(),
         '/adminpanel': (BuildContext context) => AdminPanel(),
-        '/ideapage':(BuildContext context) => IdeaPage(),
+        '/ideapage': (BuildContext context) => IdeaPage(),
       },
       theme: CustomTheme.of(context),
     );

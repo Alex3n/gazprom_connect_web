@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 Container containerNoPadding(Widget child) {
@@ -12,9 +11,7 @@ Container containerNoPadding(Widget child) {
         blurRadius: 2.0,
       ),
     ],
-
   ),
-
 //                padding: const EdgeInsets.fromLTRB(22.0,22.0,22.0,22.0),
     margin: const EdgeInsets.only(bottom: 24.0),
     child: child,

@@ -2,8 +2,8 @@ import 'package:gazpromconnectweb/main.dart';
 import 'package:gazpromconnectweb/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+/// Данный класс предназначен для смены темы оформления web-приложения
 
 class _CustomTheme extends InheritedWidget {
   final CustomThemeState data;
@@ -61,8 +61,6 @@ class CustomThemeState extends State<CustomTheme> {
     _theme = MyThemes.getThemeFromKey(mythemeKey);
     super.initState();
   }
-
-  
 
   void changeTheme(MyThemeKeys themeKey) {
     setState(() {
